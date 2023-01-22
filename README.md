@@ -9,5 +9,6 @@ Toiminnallisuuksia:
 - Käyttäjä voi lisätä katsomansa sarjan ja tuotantokauden listalle ja antaa arvion.
 - Käyttäjä voi lisätä omalle listalleen seuraavana katsottavissa olevat elokuvat ja sarjat.
 - Käyttäjä voi muokata antamaansa arviota.
+- Käyttäjä voi poistaa katsomansa elokuvan/sarjan.
 - Käyttäjä näkee tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
 - Käyttäjä näkee kaikkien antamiensa arvosanojen keskiarvon.
