@@ -1,0 +1,8 @@
+<h1>Movies and series tracker</h1>
+{% if session.user_id %}
+Welcome!
+<a href="/logout">Log out</a>
+{% else %}
+<a href="/login">Log in</a>
+<a href="/register">Register</a>
+{% endif %}
