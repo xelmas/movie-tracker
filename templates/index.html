@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
-{% block title %}Main page{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<h1>Home</h1>
+<h2>Home</h2>
 {% if session.user_id %}
 <p>Welcome {{ session.user_name }}!</p> 
 <a href="/logout">Log out</a>
 {% else %}
-Welcome!
+<p>Welcome! By creating an account on the site, you can keep track of which movies and television series
+    you have watched and give them reviews.
+    <br>You can also create your own list of movies and series to watch next. </p>
 {% endif %}
 {% endblock %}
