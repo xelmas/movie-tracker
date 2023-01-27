@@ -1,5 +1,6 @@
 from db import db
-from werkzeug.security import generate_password_hash
+from flask import session
+from werkzeug.security import check_password_hash, generate_password_hash
 
 def register(username, password):
     hash_value = generate_password_hash(password)
@@ -9,4 +10,22 @@ def register(username, password):
         db.session.commit()
     except:
         return False
-    return print("success")
+    return login(username, password)
+
+def login(username, password):
+    sql = "SELECT id,password FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()
+    if not user:
+        return False
+    else:
+        if check_password_hash(user.password, password):
+            session["user_id"] = user.id
+            session["user_name"] = username
+            return True
+        else:
+            return False
+
+def logout():
+    del session["user_id"]
+    del session["user_name"]
