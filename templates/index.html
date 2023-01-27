@@ -1,8 +1,11 @@
-<h1>Movies and series tracker</h1>
+{% extends "layout.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+<h1>Home</h1>
 {% if session.user_id %}
-Welcome!
+<p>Welcome {{ session.user_name }}!</p> 
 <a href="/logout">Log out</a>
 {% else %}
-<a href="/login">Log in</a>
-<a href="/register">Register</a>
+Welcome!
 {% endif %}
+{% endblock %}
