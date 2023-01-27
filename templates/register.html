@@ -1,3 +1,7 @@
+{% extends "layout.html" %}
+{% block title %}Register a new account {% endblock %}
+{% block content %}
+<h2>Register account</h2>
 <form action="/register" method="post">
     Username: <input type="text" name="username">
     <p>
@@ -7,3 +11,4 @@
     <p>
     <input type="submit" value="Register">
     </form>
+{% endblock %}
