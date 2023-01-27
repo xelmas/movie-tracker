@@ -35,8 +35,8 @@ CREATE TABLE season_ratings (
 );
 CREATE TABLE watchlist(
     id SERIAL PRIMARY KEY,
-    user_id REFERENCES users,
-    season_id REFERENCES seasons,
-    movie_id REFERENCES movies,
+    user_id INTEGER REFERENCES users,
+    season_id INTEGER REFERENCES seasons,
+    movie_id INTEGER REFERENCES movies,
     status INTEGER
 );
