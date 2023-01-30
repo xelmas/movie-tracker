@@ -77,7 +77,6 @@ def create_movie():
     year = request.form["year"]
     if movies.add_movie(title, year):
         return redirect("/")
-    
     return render_template("error.html", message="Movie already in the database")
     
 
