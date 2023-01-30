@@ -44,6 +44,14 @@ def logout():
 def search():
     return render_template("search.html")
 
+@app.route("/add_movie", methods=["GET"])
+def Add_movie():
+    return render_template("add_movie.html")
+
+@app.route("/add_serie", methods=["GET"])
+def Add_serie():
+    return render_template("add_serie.html")
+
 # @app.route("/result", methods=["GET"])
 # def result():
 #     query = request.args["query"]
@@ -56,9 +64,39 @@ def search():
 def result():
     query = request.args["query"]
     media_movies = movies.search_movie(query)
-    
+
     if not media_movies:
         series_media = series.search_series(query)
         return render_template("result.html", media=series_media)
 
     return render_template("result.html", media=media_movies)
+
+@app.route("/create_movie", methods=["POST"])
+def create_movie():
+    title = request.form["title"]
+    year = request.form["year"]
+    try:
+        sql = "INSERT INTO movies (title, year) VALUES (:title, :year)"
+        db.session.execute(sql, {"title":title, "year":year})
+        db.session.commit()
+    except:
+        return render_template("error.html", message="Movie already in the database")
+    return redirect("/")
+
+@app.route("/create_serie", methods=["POST"])
+def create_serie():
+    title = request.form["title"]
+    year = request.form["year"]
+    serie_exists = series.serie_exists(title)
+    if not serie_exists:
+        series.add_serie(title, year)
+        return redirect("/")
+    elif serie_exists:
+        serie_id = series.get_serie_id(title)
+        season_exists = series.season_exists(year, serie_id)
+        if not season_exists:
+            series.add_season(year, serie_id)
+            return redirect("/")
+        
+    return render_template("error.html", message="Serie/season already in the database")
+    
