@@ -5,8 +5,12 @@
     {% for item in media%}
     <li>
         {{ item[0] }}, {{item[1]}}
+        <form action="/add_watchlist" method="post">
+            <input type="hidden" name="title" value="{{item[0]}}">
+            <input type="hidden" name="year" value="{{item[1]}}">
+            <input type="submit" value="Add to watchlist">
+            </form>
     </li>
-
 {% endfor %}
 </ul>
 <a href="/search">Go back</a>
