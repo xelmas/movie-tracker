@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Add serie{% endblock %}
+{% block content %}
+<h2>Add new serie/season</h2>
+<form action="/create_serie" method="POST">
+    <p>Fill in the information:<br>
+    <p>Title:<br>
+    <input type="text" name="title"></p>
+    <p>Year released:<br>
+    <input type="number" name="year"></p>
+    <input type="submit" value="Add">
+    </form>
+
+{% endblock %}
