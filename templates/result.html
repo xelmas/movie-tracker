@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Search result {% endblock %}
+{% block content %}
+<ul>
+    {% for item in media%}
+    <li>
+        {{ item[0] }}, {{item[1]}}
+    </li>
+
+{% endfor %}
+</ul>
+<a href="/search">Go back</a>
+{% endblock %}
