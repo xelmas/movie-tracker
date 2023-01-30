@@ -15,3 +15,16 @@ def add_movie(title, year):
     except:
         return False
     return True
+
+def add_watchlist(user_id, movie_id):
+    sql = "INSERT INTO movies_watchlist (user_id, movie_id) VALUES (:user_id, :movie_id)"
+    db.session.execute(sql, {"user_id":user_id, "movie_id":movie_id})
+    db.session.commit()
+    return True
+
+
+def get_movie_id(title):
+    sql = "SELECT id FROM movies WHERE title = :title"
+    result = db.session.execute(sql, {"title":title})
+    movie_id = result.fetchone()[0]
+    return movie_id
