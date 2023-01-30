@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %} Watchlist {% endblock %}
+{% block content %}
+<h2>Watchlist</h2>
+<ul>
+    {% for item in watchlist %}
+    <li>
+        Movie_id: {{ item.movie_id }}
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
