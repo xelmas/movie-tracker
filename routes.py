@@ -1,6 +1,6 @@
 from app import app
 from db import db
-import users
+import users, movies, series
 from flask import render_template, request, redirect
 
 
@@ -44,10 +44,21 @@ def logout():
 def search():
     return render_template("search.html")
 
+# @app.route("/result", methods=["GET"])
+# def result():
+#     query = request.args["query"]
+#     sql = "SELECT title, year FROM movies WHERE title LIKE :query"
+#     result = db.session.execute(sql, {"query": "%"+query+"%"})
+#     media = result.fetchall()
+#     return render_template("result.html", media=media)
+
 @app.route("/result", methods=["GET"])
 def result():
     query = request.args["query"]
-    sql = "SELECT title, year FROM movies WHERE title LIKE :query"
-    result = db.session.execute(sql, {"query": "%"+query+"%"})
-    media = result.fetchall()
-    return render_template("result.html", media=media)
+    media_movies = movies.search_movie(query)
+    
+    if not media_movies:
+        series_media = series.search_series(query)
+        return render_template("result.html", media=series_media)
+
+    return render_template("result.html", media=media_movies)
