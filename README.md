@@ -4,8 +4,14 @@ Sovelluksen avulla käyttäjä voi seurata mitä elokuvia ja sarjoja on katsonut
 
 Toiminnallisuuksia:
 
+Versio 1.0
+
 - Käyttäjä voi luoda uuden tunnuksen ja kirjautua sisään ja ulos.
 - Käyttäjä voi hakea elokuvaa/sarjaa sen nimellä.
+- Käyttäjä voi lisätä uuden elokuvan tai sarjan
+
+
+To do:
 - Käyttäjä voi lisätä katsomansa elokuvan omalle listalle ja antaa sille arvion.
 - Käyttäjä voi lisätä katsomansa sarjan ja tuotantokauden omalle listalle ja antaa sille arvion.
 - Käyttäjä voi muokata antamaansa arviota.
@@ -14,4 +20,3 @@ Toiminnallisuuksia:
 - Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
 - Käyttäjä näkee etusivulla kaikkien antamiensa arvosanojen keskiarvon.
 - Käyttäjä näkee etusivulla top 3 parhaimmat arviot saaneet elokuvat/sarjat.
-- Ylläpitäjä voi tarvittaessa lisätä ja poistaa elokuvia/sarjoja.
