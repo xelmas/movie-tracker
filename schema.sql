@@ -5,7 +5,7 @@ CREATE TABLE users (
 );
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
-    title TEXT,
+    title TEXT UNIQUE,
     year INTEGER
 );
 CREATE TABLE series(
@@ -25,7 +25,7 @@ CREATE TABLE movie_ratings (
     id SERIAL PRIMARY KEY,
     rating_id INTEGER REFERENCES ratings,
     user_id INTEGER REFERENCES users,
-    movie_id INTEGER REFERENCES movies,
+    movie_id INTEGER REFERENCES movies
 );
 CREATE TABLE season_ratings (
     id SERIAL PRIMARY KEY,
