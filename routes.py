@@ -1,6 +1,8 @@
 from app import app
+from db import db
 import users
 from flask import render_template, request, redirect
+
 
 @app.route("/")
 def index():
@@ -37,3 +39,15 @@ def login():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/search", methods=["GET"])
+def search():
+    return render_template("search.html")
+
+@app.route("/result", methods=["GET"])
+def result():
+    query = request.args["query"]
+    sql = "SELECT title, year FROM movies WHERE title LIKE :query"
+    result = db.session.execute(sql, {"query": "%"+query+"%"})
+    media = result.fetchall()
+    return render_template("result.html", media=media)
