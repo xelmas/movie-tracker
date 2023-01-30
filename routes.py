@@ -75,13 +75,11 @@ def result():
 def create_movie():
     title = request.form["title"]
     year = request.form["year"]
-    try:
-        sql = "INSERT INTO movies (title, year) VALUES (:title, :year)"
-        db.session.execute(sql, {"title":title, "year":year})
-        db.session.commit()
-    except:
-        return render_template("error.html", message="Movie already in the database")
-    return redirect("/")
+    if movies.add_movie(title, year):
+        return redirect("/")
+    
+    return render_template("error.html", message="Movie already in the database")
+    
 
 @app.route("/create_serie", methods=["POST"])
 def create_serie():
