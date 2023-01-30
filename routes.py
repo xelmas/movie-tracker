@@ -52,6 +52,14 @@ def Add_movie():
 def Add_serie():
     return render_template("add_serie.html")
 
+
+@app.route("/watchlist", methods=["GET"])
+def watchlist():
+    sql = "SELECT movie_id FROM movies_watchlist"
+    result = db.session.execute(sql)
+    watchlist = result.fetchall()
+    return render_template("watchlist.html", watchlist=watchlist)
+
 # @app.route("/result", methods=["GET"])
 # def result():
 #     query = request.args["query"]
@@ -96,4 +104,16 @@ def create_serie():
             return redirect("/")
         
     return render_template("error.html", message="Serie/season already in the database")
+
+@app.route("/add_watchlist", methods=["POST"])
+def add_watchlist():
+
+    title = request.form["title"]
+    year = request.form["year"]
+    movie_id = movies.get_movie_id(title)
+    user_id = users.user_id()
+    if movies.add_watchlist(user_id, movie_id):
+        return redirect("/search")
+
+    return render_template("error.html", message="Could not add item to the watchlist")
     
