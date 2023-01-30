@@ -6,13 +6,13 @@
 <p>Welcome {{ session.user_name }}!</p> 
 <a href="/logout">Log out</a>
 <a href="/search">Search</a>
-
-<form action="/search">
+<p>
+<form action="/result">
     Keyword: <input type="text" name="query">
     <br>
     <input type="submit" value="Search">
     </form>
-
+</p>
 {% else %}
 <p>Welcome! By creating an account on the site, you can keep track of which movies and television series
     you have watched and give them reviews.
