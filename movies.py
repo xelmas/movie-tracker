@@ -29,6 +29,14 @@ def add_watchlist(user_id, movie_id):
         return True
     return False
 
+def delete_watchlist(user_id, movie_id):
+
+    sql = "DELETE FROM movies_watchlist WHERE user_id=:user_id AND movie_id=:movie_id"
+    db.session.execute(sql, {"user_id":user_id, "movie_id":movie_id})
+    db.session.commit()
+    return True
+
+
 def get_movie_id(title):
     sql = "SELECT id FROM movies WHERE title = :title"
     result = db.session.execute(sql, {"title":title})
