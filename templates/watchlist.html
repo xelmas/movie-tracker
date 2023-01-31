@@ -5,12 +5,22 @@
 <ul>
     {% for item in watchlist1 %}
     <li>
-        {{ item.title }}, {{ item.year }}
+        {{ item.title }}, {{ item.year }} 
+        <form action="/delete_watchlist" method="post">
+            <input type="hidden" name="id" value="{{ item.id }}">
+            <input type="hidden" name="media" value="movie">
+            <input type="submit" value="Delete from watchlist">
+            </form>
     </li>
 {% endfor %}
     {% for item in watchlist2 %}
     <li>
         {{ item.title }}, {{ item.year }}
+        <form action="/delete_watchlist" method="post">
+            <input type="hidden" name="id" value="{{ item.id }}">
+            <input type="hidden" name="media" value="serie">
+            <input type="submit" value="Delete from watchlist">
+            </form>
     </li>
     {% endfor %}
 
