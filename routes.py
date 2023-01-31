@@ -55,10 +55,15 @@ def Add_serie():
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
-    sql = "SELECT movie_id FROM movies_watchlist"
+
+    sql = "SELECT title, year FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
     result = db.session.execute(sql)
-    watchlist = result.fetchall()
-    return render_template("watchlist.html", watchlist=watchlist)
+    movie_watchlist = result.fetchall()
+
+    sql = "SELECT title, year FROM (SELECT S.id, title, year FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    result = db.session.execute(sql)
+    series_watchlist = result.fetchall()
+    return render_template("watchlist.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
 
 # @app.route("/result", methods=["GET"])
 # def result():
@@ -110,10 +115,18 @@ def add_watchlist():
 
     title = request.form["title"]
     year = request.form["year"]
-    movie_id = movies.get_movie_id(title)
     user_id = users.user_id()
-    if movies.add_watchlist(user_id, movie_id):
-        return redirect("/search")
 
-    return render_template("error.html", message="Could not add item to the watchlist")
+    if movies.movie_exists(title):
+        movie_id = movies.get_movie_id(title)
+        if movies.add_watchlist(user_id, movie_id):
+            return redirect("/search")
+
+    if series.serie_exists(title):
+        serie_id = series.get_serie_id(title)
+        season_id = series.get_season_id(year, serie_id)
+        if series.add_watchlist(user_id, season_id):
+            return redirect("/search")
+
+    return render_template("error.html", message="Move/serie already on the watchlist")
     
