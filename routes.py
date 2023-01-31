@@ -137,3 +137,22 @@ def delete_watchlist():
         return redirect("/watchlist")
 
     return render_template("error.html", message="Deleting item from the list was not successful")
+
+@app.route("/watched", methods=["POST"])
+def watched():
+    media = request.form["media"]
+    user_id = users.user_id()
+    watched = request.form.getlist("watched")
+
+    try:
+        for item in watched:
+            if media == "movie":
+                if movies.mark_watched(item, user_id):
+                    continue
+            
+            if media == "serie":
+                if series.mark_watched(item, user_id):
+                    continue
+    except:
+        return render_template("error.html", message="Updating watched list was not succesful")
+    return redirect("/watchlist")

@@ -2,27 +2,48 @@
 {% block title %} Watchlist {% endblock %}
 {% block content %}
 <h2>Watchlist</h2>
+
 <ul>
+    <h3>Movies</h3>
     {% for item in watchlist1 %}
     <li>
-        {{ item.title }}, {{ item.year }} 
+        <p>{{ item.title }}, {{ item.year }} <br>
+        <form action="/watched", method="post">
+            <input type="checkbox" name="watched" value="{{ item.id }}"> Mark as Watched
+            <input type="hidden" name="media" value="movie">
+            <br>
+        </form>
         <form action="/delete_watchlist" method="post">
             <input type="hidden" name="id" value="{{ item.id }}">
             <input type="hidden" name="media" value="movie">
-            <input type="submit" value="Delete from watchlist">
-            </form>
+            <input type="submit" value="Delete">
+        </p>
     </li>
-{% endfor %}
+    {% endfor %}
+    {% if watchlist1|length > 0%}
+    <input type="submit" value="Mark selected movies">
+    {% endif %}
+    </form>
+
+<h3>Television Series</h3>
     {% for item in watchlist2 %}
     <li>
-        {{ item.title }}, {{ item.year }}
+        <p>{{ item.title }}, {{ item.year }} <br>
+        <form action="/watched" method="post">
+            <input type="checkbox" name="watched" value="{{ item.id }}"> Mark as watched
+            <input type="hidden" name="media" value="serie"> 
+            <br>
+        </form>
         <form action="/delete_watchlist" method="post">
             <input type="hidden" name="id" value="{{ item.id }}">
             <input type="hidden" name="media" value="serie">
-            <input type="submit" value="Delete from watchlist">
-            </form>
+            <input type="submit" value="Delete">
+        </p>
     </li>
     {% endfor %}
-
+    {% if watchlist2|length > 0%}
+    <input type="submit" value="Mark selected series">
+    {% endif %}
+    </form>
 </ul>
 {% endblock %}

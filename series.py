@@ -58,9 +58,19 @@ def add_watchlist(user_id, season_id):
     return False
 
 def delete_watchlist(user_id, season_id):
-
-    sql = "DELETE FROM series_watchlist WHERE user_id=:user_id AND season_id=:season_id"
-    db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
-    db.session.commit()
+    try:
+        sql = "DELETE FROM series_watchlist WHERE user_id=:user_id AND season_id=:season_id"
+        db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
+        db.session.commit()
+    except:
+        return False
     return True
-    
+
+def mark_watched(season_id, user_id):
+    sql = "UPDATE series_watchlist SET status=1 WHERE series_watchlist.season_id=:season_id AND series_watchlist.user_id=:user_id"
+    db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
+    db.session.commit()
+
+    if delete_watchlist(user_id, season_id):
+        return True
+    return False
