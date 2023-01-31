@@ -3,10 +3,16 @@
 {% block content %}
 <h2>Watchlist</h2>
 <ul>
-    {% for item in watchlist %}
+    {% for item in watchlist1 %}
     <li>
-        Movie_id: {{ item.movie_id }}
+        {{ item.title }}, {{ item.year }}
     </li>
 {% endfor %}
+    {% for item in watchlist2 %}
+    <li>
+        {{ item.title }}, {{ item.year }}
+    </li>
+    {% endfor %}
+
 </ul>
 {% endblock %}
