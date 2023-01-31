@@ -56,22 +56,14 @@ def Add_serie():
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
 
-    sql = "SELECT title, year FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
+    sql = "SELECT movies.id, title, year FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
     result = db.session.execute(sql)
     movie_watchlist = result.fetchall()
 
-    sql = "SELECT title, year FROM (SELECT S.id, title, year FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    sql = "SELECT t.id, title, year FROM (SELECT S.id, title, year FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
     result = db.session.execute(sql)
     series_watchlist = result.fetchall()
     return render_template("watchlist.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
-
-# @app.route("/result", methods=["GET"])
-# def result():
-#     query = request.args["query"]
-#     sql = "SELECT title, year FROM movies WHERE title LIKE :query"
-#     result = db.session.execute(sql, {"query": "%"+query+"%"})
-#     media = result.fetchall()
-#     return render_template("result.html", media=media)
 
 @app.route("/result", methods=["GET"])
 def result():
@@ -129,4 +121,19 @@ def add_watchlist():
             return redirect("/search")
 
     return render_template("error.html", message="Move/serie already on the watchlist")
-    
+
+@app.route("/delete_watchlist", methods=["POST"])
+def delete_watchlist():
+
+    media = request.form["media"]
+    id = request.form["id"]
+    user_id = users.user_id()
+
+    if media == "movie":
+        movies.delete_watchlist(user_id, movie_id=id)
+        return redirect("/watchlist")
+    if media == "serie":
+        series.delete_watchlist(user_id, season_id=id)
+        return redirect("/watchlist")
+
+    return render_template("error.html", message="Deleting item from the list was not successful")
