@@ -70,3 +70,4 @@ def mark_watched(season_id, user_id):
     sql = "UPDATE series_watchlist SET status=1 WHERE series_watchlist.season_id=:season_id AND series_watchlist.user_id=:user_id"
     db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
     db.session.commit()
+    return True

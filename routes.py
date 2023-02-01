@@ -56,11 +56,11 @@ def Add_serie():
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
 
-    sql = "SELECT movies.id, title, year FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
     result = db.session.execute(sql)
     movie_watchlist = result.fetchall()
 
-    sql = "SELECT t.id, title, year FROM (SELECT S.id, title, year FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
     result = db.session.execute(sql)
     series_watchlist = result.fetchall()
     return render_template("watchlist.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
@@ -122,37 +122,70 @@ def add_watchlist():
 
     return render_template("error.html", message="Move/serie already on the watchlist")
 
-@app.route("/delete_watchlist", methods=["POST"])
-def delete_watchlist():
+@app.route("/update_watchlist", methods=["GET","POST"])
+def update_watchlist():
 
-    media = request.form["media"]
-    id = request.form["id"]
     user_id = users.user_id()
-
-    if media == "movie":
-        movies.delete_watchlist(user_id, movie_id=id)
-        return redirect("/watchlist")
-    if media == "serie":
-        series.delete_watchlist(user_id, season_id=id)
-        return redirect("/watchlist")
-
-    return render_template("error.html", message="Deleting item from the list was not successful")
-
-@app.route("/watched", methods=["POST"])
-def watched():
-    media = request.form["media"]
-    user_id = users.user_id()
+    delete = request.form.getlist("delete")
     watched = request.form.getlist("watched")
 
-    try:
+    if len(delete) > 0:
+        for item in delete:
+            item = item.split("-")
+            id = item[0]
+            media = int(item[1])
+            if media == 0:
+                if movies.delete_watchlist(user_id, id):
+                    continue
+            if media == 1:
+                if series.delete_watchlist(user_id, id):
+                    continue
+
+    if len(watched) > 0:
         for item in watched:
-            if media == "movie":
-                if movies.mark_watched(item, user_id):
+            item = item.split("-")
+            id = item[0]
+            media = int(item[1])
+            if media == 0:
+                if movies.mark_watched(id, user_id):
                     continue
-            
-            if media == "serie":
-                if series.mark_watched(item, user_id):
+            if media == 1:
+                if series.mark_watched(id, user_id):
                     continue
-    except:
-        return render_template("error.html", message="Updating watched list was not succesful")
+
     return redirect("/watchlist")
+    
+    #return render_template("error.html", message="Updating watchlist was not successful")
+
+# @app.route("/mark_watched", methods=["POST"])
+# def mark_watched():
+#     media = request.form["media"]
+#     user_id = users.user_id()
+#     watched = request.form.getlist("watched")
+
+#     try:
+#         for item in watched:
+#             if media == "movie":
+#                 if movies.mark_watched(item, user_id):
+#                     continue
+            
+#             if media == "serie":
+#                 if series.mark_watched(item, user_id):
+#                     continue
+#     except:
+#         return render_template("error.html", message="Updating watched list was not succesful")
+#     return redirect("/watchlist")
+
+@app.route("/watched", methods=["GET"])
+def watched():
+    
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
+    result = db.session.execute(sql)
+    movie_watchlist = result.fetchall()
+
+    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    result = db.session.execute(sql)
+    series_watchlist = result.fetchall()
+    return render_template("watched.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
+
+    #return render_template("error.html", message="Watched list unavailable")
