@@ -21,3 +21,26 @@ To do:
 - Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
 - Käyttäjä näkee etusivulla kaikkien antamiensa arvosanojen keskiarvon.
 - Käyttäjä näkee etusivulla top 3 parhaimmat arviot saaneet elokuvat/sarjat.
+
+Voit testata sovellusta paikallisesti:
+1. Kloonaa tämä repositorio omalle koneelle ja siirry juurikansioon
+2. Luo kansioon .env-tiedosto, jossa 
+    DATABASE_URL=<tietokannan-paikallinen-osoite>
+    SECRET_KEY=<salainen-avain>
+
+    missä DATABASE_URL = postgresql+psycopg2:///user tai postgresql:///user riippuen PostgreSQL:n asennuksesta
+    missä SECRET_KEY = oma luotu salainen avain
+    
+    Esim. voit luoda oman salaisen avaimen komennoilla:
+        $ python3
+        >>> import secrets
+        >>> secrets.token_hex(16)
+        
+3. Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+    $ python3 -m venv venv
+    $ source venv/bin/activate
+    $ pip install -r ./requirements.txt
+4. Hae tietokannan skeema komennolla
+    $ psql < schema.sql
+5. Käynnistä sovellus komennolla 
+    $ flask run
