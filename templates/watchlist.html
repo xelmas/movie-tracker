@@ -6,7 +6,7 @@
 <ul>
     <h3>Movies</h3>
     {% for item in watchlist1 %}
-        {% if item.status == 0 %}
+        
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
         <form action="/update_watchlist", method="post">
@@ -15,7 +15,7 @@
             <br>
         </p>
     </li>
-        {% endif %}
+        
     {% endfor %}
     {% if watchlist1|length > 0%}
         <input type="submit" name="button" value="Update selected movies">
@@ -24,7 +24,7 @@
 
 <h3>Television Series</h3>
     {% for item in watchlist2 %}
-        {% if item.status == 0 %}
+        
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
         <form action="/update_watchlist" method="post">
@@ -33,7 +33,7 @@
             <br>
         </p>
     </li>
-        {% endif %}
+        
     {% endfor %}
     {% if watchlist2|length > 0%}
     

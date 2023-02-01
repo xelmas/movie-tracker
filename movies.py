@@ -1,5 +1,4 @@
 from db import db
-from flask import request
 
 def search_movie(query):
     sql = "SELECT title, year FROM movies WHERE title LIKE :query"
@@ -67,7 +66,7 @@ def watched():
     return watched_movies
 
 def watchlist():
-    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 0"
     result = db.session.execute(sql)
     movie_watchlist = result.fetchall()
     return movie_watchlist

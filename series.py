@@ -80,7 +80,7 @@ def watched():
     return watched_series
 
 def watchlist():
-    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 0"
     result = db.session.execute(sql)
     series_watchlist = result.fetchall()
     return series_watchlist

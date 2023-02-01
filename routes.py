@@ -115,7 +115,7 @@ def add_watchlist():
         if series.add_watchlist(user_id, season_id):
             return redirect("/search")
 
-    return render_template("error.html", message="Move/serie already on the watchlist")
+    return render_template("error.html", message="Move/serie already on the watchlist or watched")
 
 @app.route("/update_watchlist", methods=["GET","POST"])
 def update_watchlist():
