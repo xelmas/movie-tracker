@@ -13,10 +13,10 @@ Versio 1.0
 - Käyttäjä voi poistaa omalta listalta elokuvan/sarjan
 - Käyttäjä voi merkata elokuvan/sarjan katsotuksi
 - Käyttäjä näkee mitkä elokuvat/sarjat on katsonut
+- Käyttäjä voi antaa arvion elokuvalle/sarjalle
 
 
 To do:
-- Käyttäjä voi antaa arvion elokuvalle/sarjalle
 - Käyttäjä voi muokata antamaansa arviota.
 - Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
 - Käyttäjä näkee etusivulla kaikkien antamiensa arvosanojen keskiarvon.
