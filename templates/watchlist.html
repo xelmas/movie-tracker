@@ -6,6 +6,7 @@
 <ul>
     <h3>Movies</h3>
     {% for item in watchlist1 %}
+        {% if item.status != 1 %}
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
         <form action="/watched", method="post">
@@ -19,6 +20,7 @@
             <input type="submit" value="Delete">
         </p>
     </li>
+        {% endif %}
     {% endfor %}
     {% if watchlist1|length > 0%}
     <input type="submit" value="Mark selected movies">
@@ -27,6 +29,7 @@
 
 <h3>Television Series</h3>
     {% for item in watchlist2 %}
+        {% if item.status != 1 %}
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
         <form action="/watched" method="post">
@@ -40,6 +43,7 @@
             <input type="submit" value="Delete">
         </p>
     </li>
+        {% endif %}
     {% endfor %}
     {% if watchlist2|length > 0%}
     <input type="submit" value="Mark selected series">
