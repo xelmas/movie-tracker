@@ -2,20 +2,19 @@
 {% block title %} Watched {% endblock %}
 {% block content %}
 <h2>Watched movies</h2>
-{% for item in watchlist1 %}
-    
+    {% for item in watchlist1 %}
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
     </li>
     
-{% endfor %}
-<br>
+    {% endfor %}
+    <br>
 <h2>Watched television series</h2>
-{% for item in watchlist2 %}
+    {% for item in watchlist2 %}
     <li>
         <p>{{ item.title }}, {{ item.year }} <br>
     </li>
     
-{% endfor %}
+    {% endfor %}
 
 {% endblock %}
