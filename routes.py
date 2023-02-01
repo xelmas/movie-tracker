@@ -1,6 +1,6 @@
 from app import app
 from db import db
-import users, movies, series
+import users, movies, series, ratings
 from flask import render_template, request, redirect
 
 
@@ -162,3 +162,16 @@ def watched():
         return render_template("error.html", message="Watched lists unavailable")
 
     return render_template("watched.html", watchlist1=watched_movies, watchlist2=watched_series)
+
+@app.route("/rate", methods=["POST"])
+def rate():
+
+    rating = int(request.form["rating"])
+    id = request.form["id"]
+    media = int(request.form["media"])
+    user_id = users.user_id()
+
+    if ratings.rate(user_id, id, rating, media):
+        return redirect("/watched")
+
+    return render_template("error.html", message="Something went wrong with rating")
