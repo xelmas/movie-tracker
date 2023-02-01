@@ -26,22 +26,23 @@ Voit testata sovellusta paikallisesti:
 1. Kloonaa tämä repositorio omalle koneelle ja siirry juurikansioon
 2. Luo kansioon .env-tiedosto, jossa\
     DATABASE_URL= tietokannan-paikallinen-osoite\
-    SECRET_KEY= salainen-avain\
+    SECRET_KEY= salainen-avain
 
-    missä tietokannan-paikallinen-osoite = postgresql+psycopg2:///user tai\
-    postgresql:///user riippuen PostgreSQL:n asennuksesta\
-    missä salainen-avain = oma luotu salainen avain\
+    missä tietokannan-paikallinen-osoite = postgresql+psycopg2:///user tai postgresql:///user \
+    riippuen PostgreSQL:n asennuksesta\
+    missä salainen-avain = oma luotu salainen avain
     
     Esim. voit luoda oman salaisen avaimen komennoilla:\
         $ python3\
         >>> import secrets\
-        >>> secrets.token_hex(16)\
+        >>> secrets.token_hex(16)
 
 3. Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla\
     $ python3 -m venv venv\
     $ source venv/bin/activate\
-    $ pip install -r ./requirements.txt\
+    $ pip install -r ./requirements.txt
+
 4. Hae tietokannan skeema komennolla\
-    $ psql < schema.sql\
-5. Käynnistä sovellus komennolla\ 
-    $ flask run\
+    $ psql < schema.sql
+5. Käynnistä sovellus komennolla
+    $ flask run
