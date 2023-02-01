@@ -28,8 +28,7 @@ Voit testata sovellusta paikallisesti:
     DATABASE_URL= tietokannan-paikallinen-osoite\
     SECRET_KEY= salainen-avain
 
-    missä tietokannan-paikallinen-osoite = postgresql+psycopg2:///user tai postgresql:///user \
-    riippuen PostgreSQL:n asennuksesta\
+    missä tietokannan-paikallinen-osoite = postgresql+psycopg2:///user tai postgresql:///user riippuen PostgreSQL:n asennuksesta\
     missä salainen-avain = oma luotu salainen avain
     
     Esim. voit luoda oman salaisen avaimen komennoilla:\
@@ -44,5 +43,5 @@ Voit testata sovellusta paikallisesti:
 
 4. Hae tietokannan skeema komennolla\
     $ psql < schema.sql
-5. Käynnistä sovellus komennolla
+5. Käynnistä sovellus komennolla\
     $ flask run
