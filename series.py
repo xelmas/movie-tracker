@@ -71,3 +71,16 @@ def mark_watched(season_id, user_id):
     db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
     db.session.commit()
     return True
+
+def watched():
+
+    sql = "SELECT t.id, title, year, t.media FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 1"
+    result = db.session.execute(sql)
+    watched_series = result.fetchall()
+    return watched_series
+
+def watchlist():
+    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id"
+    result = db.session.execute(sql)
+    series_watchlist = result.fetchall()
+    return series_watchlist

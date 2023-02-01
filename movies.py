@@ -59,3 +59,15 @@ def mark_watched(movie_id, user_id):
     except:
         return False
     return True
+
+def watched():
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 1"
+    result = db.session.execute(sql)
+    watched_movies = result.fetchall()
+    return watched_movies
+
+def watchlist():
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id"
+    result = db.session.execute(sql)
+    movie_watchlist = result.fetchall()
+    return movie_watchlist
