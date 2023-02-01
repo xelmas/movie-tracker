@@ -10,6 +10,7 @@ Versio 1.0
 - Käyttäjä voi hakea elokuvaa/sarjaa sen nimellä.
 - Käyttäjä voi lisätä uuden elokuvan tai sarjan tietokantaan.
 - Käyttäjä voi lisätä omalle listalleen seuraavana katsottavissa olevat elokuvat ja sarjat.
+- Käyttäjä voi poistaa omalta listalta elokuvan/sarjan
 - Käyttäjä voi merkata elokuvan/sarjan katsotuksi
 - Käyttäjä näkee mitkä elokuvat/sarjat on katsonut
 
