@@ -37,12 +37,12 @@ CREATE TABLE movies_watchlist(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     movie_id INTEGER REFERENCES movies,
-    status INTEGER
+    status INTEGER DEFAULT 0
 );
 CREATE TABLE series_watchlist(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     season_id INTEGER REFERENCES seasons,
-    status INTEGER
+    status INTEGER DEFAULT 0
 );
 
