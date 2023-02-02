@@ -17,12 +17,14 @@ def add_movie(title, year):
 
 def add_watchlist(user_id, movie_id):
 
-    sql = "SELECT EXISTS (SELECT 1 FROM movies_watchlist WHERE movie_id = :movie_id AND user_id=:user_id)"
+    sql = """SELECT EXISTS (SELECT 1 FROM movies_watchlist
+             WHERE movie_id = :movie_id AND user_id=:user_id)"""
     exists = db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
     exists = exists.fetchone()[0]
 
     if not exists:
-        sql = "INSERT INTO movies_watchlist (user_id, movie_id) VALUES (:user_id, :movie_id)"
+        sql = """INSERT INTO movies_watchlist (user_id, movie_id)
+                 VALUES (:user_id, :movie_id)"""
         db.session.execute(sql, {"user_id":user_id, "movie_id":movie_id})
         db.session.commit()
         return True
@@ -52,7 +54,8 @@ def movie_exists(title):
 
 def mark_watched(movie_id, user_id):
     try:
-        sql = "UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id AND movies_watchlist.user_id=:user_id"
+        sql = """UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id 
+                 AND movies_watchlist.user_id=:user_id"""
         db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
         db.session.commit()
     except:
@@ -60,13 +63,15 @@ def mark_watched(movie_id, user_id):
     return True
 
 def watched(user_id):
-    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id"
+    sql = """SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies 
+             ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id"""
     result = db.session.execute(sql, {"user_id":user_id})
     watched_movies = result.fetchall()
     return watched_movies
 
 def watchlist(user_id):
-    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 0 AND user_id=:user_id"
+    sql = """SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies
+             ON movies_watchlist.movie_id = movies.id WHERE status = 0 AND user_id=:user_id"""
     result = db.session.execute(sql, {"user_id":user_id})
     movie_watchlist = result.fetchall()
     return movie_watchlist
