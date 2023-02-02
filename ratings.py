@@ -64,7 +64,7 @@ def exists(user_id, media_id, media):
         exists = db.session.execute(sql, {"media_id":media_id, "user_id":user_id})
         exists = exists.fetchone()[0]
     
-    if media == 1:
+    else:
         sql = """SELECT EXISTS (SELECT 1 FROM season_ratings
                  WHERE season_id= :media_id AND user_id=:user_id)"""
         exists = db.session.execute(sql, {"media_id":media_id, "user_id":user_id})
@@ -79,11 +79,11 @@ def get_rating_id(user_id, media_id, media):
                  WHERE movie_ratings.movie_id=:media_id AND user_id=:user_id"""
         result = db.session.execute(sql, {"user_id":user_id,"media_id":media_id})
         rating_id = result.fetchone()[0]
-        return rating_id
 
-    if media == 1:
+    else:
         sql = """SELECT ratings.id FROM ratings JOIN season_ratings ON season_ratings.rating_id = ratings.id
                  WHERE season_ratings.season_id=:media_id AND user_id=:user_id"""
         result = db.session.execute(sql, {"user_id":user_id,"media_id":media_id})
         rating_id = result.fetchone()[0]
-        return rating_id
+    
+    return rating_id
