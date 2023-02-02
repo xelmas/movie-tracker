@@ -17,8 +17,8 @@ def add_movie(title, year):
 
 def add_watchlist(user_id, movie_id):
 
-    sql = "SELECT EXISTS (SELECT 1 FROM movies_watchlist WHERE movie_id = :movie_id)"
-    exists = db.session.execute(sql, {"movie_id":movie_id})
+    sql = "SELECT EXISTS (SELECT 1 FROM movies_watchlist WHERE movie_id = :movie_id AND user_id=:user_id)"
+    exists = db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
     exists = exists.fetchone()[0]
 
     if not exists:

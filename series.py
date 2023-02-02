@@ -46,8 +46,8 @@ def get_season_id(year, serie_id):
 
 def add_watchlist(user_id, season_id):
 
-    sql = "SELECT EXISTS (SELECT 1 FROM series_watchlist WHERE season_id = :season_id)"
-    exists = db.session.execute(sql, {"season_id":season_id})
+    sql = "SELECT EXISTS (SELECT 1 FROM series_watchlist WHERE season_id = :season_id AND user_id=:user_id)"
+    exists = db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
     exists = exists.fetchone()[0]
 
     if not exists:
