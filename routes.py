@@ -1,8 +1,6 @@
-from app import app
-from db import db
-import users, movies, series, ratings
 from flask import render_template, request, redirect
-
+from app import app
+import users, movies, series, ratings
 
 @app.route("/")
 def index():
@@ -10,6 +8,7 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
     if request.method == "GET":
         return render_template("register.html")
     if request.method == "POST":
@@ -20,11 +19,11 @@ def register():
             return render_template("error.html", message="Passwords are not equal")
         if users.register(username, password1):
             return redirect("/")
-        else:
-            return render_template("error.html", message="Registering not successful")
+    return render_template("error.html", message="Registering not successful")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
     if request.method == "GET":
         return render_template("login.html")
     if request.method == "POST":
@@ -32,11 +31,11 @@ def login():
         password = request.form["password"]
         if users.login(username, password):
             return redirect("/")
-        else:
-            return render_template("error.html", message="Wrong password or username")
+    return render_template("error.html", message="Wrong password or username")
 
 @app.route("/logout")
 def logout():
+
     users.logout()
     return redirect("/")
 
@@ -50,13 +49,16 @@ def add():
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
+
     user_id = users.user_id()
     movie_watchlist = movies.watchlist(user_id)
     series_watchlist = series.watchlist(user_id)
-    return render_template("watchlist.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
+    return render_template("watchlist.html", watchlist1=movie_watchlist,
+                                            watchlist2=series_watchlist)
 
 @app.route("/result", methods=["GET"])
 def result():
+
     query = request.args["query"]
     movie = movies.search_movie(query)
 
@@ -68,28 +70,28 @@ def result():
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
+
     title = request.form["title"]
     year = request.form["year"]
     if movies.add_movie(title, year):
         return redirect("/")
     return render_template("error.html", message="Movie already in the database")
-    
 
 @app.route("/create_serie", methods=["POST"])
 def create_serie():
+
     title = request.form["title"]
     year = request.form["year"]
     serie_exists = series.serie_exists(title)
     if not serie_exists:
         series.add_serie(title, year)
         return redirect("/")
-    elif serie_exists:
-        serie_id = series.get_serie_id(title)
-        season_exists = series.season_exists(year, serie_id)
-        if not season_exists:
-            series.add_season(year, serie_id)
-            return redirect("/")
-        
+
+    serie_id = series.get_serie_id(title)
+    season_exists = series.season_exists(year, serie_id)
+    if not season_exists:
+        series.add_season(year, serie_id)
+        return redirect("/")
     return render_template("error.html", message="Serie/season already in the database")
 
 @app.route("/add_watchlist", methods=["POST"])
@@ -117,33 +119,33 @@ def update_watchlist():
 
     user_id = users.user_id()
     delete = request.form.getlist("delete")
-    watched = request.form.getlist("watched")
-    
+    seen = request.form.getlist("watched")
+
     if len(delete) > 0:
         for item in delete:
             item = item.split("-")
-            id = item[0]
+            media_id = item[0]
             media = int(item[1])
             if media == 0:
-                movies.delete_watchlist(user_id, id)
+                movies.delete_watchlist(user_id, media_id)
             else:
-                series.delete_watchlist(user_id, id)
-                        
-    if len(watched) > 0:
-        for item in watched:
+                series.delete_watchlist(user_id, media_id)
+
+    if len(seen) > 0:
+        for item in seen:
             item = item.split("-")
-            id = item[0]
+            media_id = item[0]
             media = int(item[1])
             if media == 0:
-                movies.mark_watched(id, user_id)
+                movies.mark_watched(media_id, user_id)
             else:
-                series.mark_watched(id, user_id)
-                          
+                series.mark_watched(media_id, user_id)
+
     return redirect("/watchlist")
-    
 
 @app.route("/watched", methods=["GET"])
 def watched():
+
     user_id = users.user_id()
     try:
         watched_movies = movies.watched(user_id)
@@ -153,17 +155,20 @@ def watched():
     except:
         return render_template("error.html", message="Watched lists unavailable")
 
-    return render_template("watched.html", watchlist1=watched_movies, watchlist2=watched_series, ratings1=movie_ratings, ratings2=season_ratings)
+    return render_template("watched.html", watchlist1=watched_movies,
+                                            watchlist2=watched_series,
+                                            ratings1=movie_ratings,
+                                            ratings2=season_ratings)
 
 @app.route("/rate", methods=["POST"])
 def rate():
 
     rating = int(request.form["rating"])
-    id = request.form["id"]
+    media_id = request.form["id"]
     media = int(request.form["media"])
     user_id = users.user_id()
 
-    if ratings.rate(user_id, id, rating, media):
+    if ratings.rate(user_id, media_id, rating, media):
         return redirect("/watched")
 
     return render_template("error.html", message="Something went wrong with rating")
