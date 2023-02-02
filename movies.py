@@ -1,7 +1,7 @@
 from db import db
 
 def search_movie(query):
-    sql = "SELECT title, year FROM movies WHERE title LIKE :query"
+    sql = "SELECT title, year FROM movies WHERE title ILIKE :query"
     result = db.session.execute(sql, {"query": "%"+query+"%"})
     results = result.fetchall()
     return results
