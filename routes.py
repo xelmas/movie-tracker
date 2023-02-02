@@ -44,14 +44,9 @@ def logout():
 def search():
     return render_template("search.html")
 
-@app.route("/add_movie", methods=["GET"])
-def Add_movie():
-    return render_template("add_movie.html")
-
-@app.route("/add_serie", methods=["GET"])
-def Add_serie():
-    return render_template("add_serie.html")
-
+@app.route("/add", methods = ["GET", "POST"])
+def add():
+    return render_template("add.html")
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():

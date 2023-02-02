@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Add movie or serie/season {% endblock %}
+{% block content %}
+
+<h2>Add a new movie</h2>
+<form action="/create_movie" method="POST">
+    <p>Fill in the information:<br>
+    <p>Title:<br>
+    <input type="text" name="title"></p>
+    <p>Year released:<br>
+    <input type="number" name="year"></p>
+    <input type="submit" value="Add">
+    </form>
+
+<h2>Add a new serie/season</h2>
+<form action="/create_serie" method="POST">
+    <p>Fill in the information:<br>
+    <p>Title:<br>
+    <input type="text" name="title"></p>
+    <p>Year released:<br>
+    <input type="number" name="year"></p>
+    <input type="submit" value="Add">
+    </form>
+<br>
+<a href="/">Go back</a>
+{% endblock %}
