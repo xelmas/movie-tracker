@@ -4,33 +4,50 @@
 <h2>Watched movies</h2>
     {% for item in watchlist1 %}
     <li>
-        <p>{{ item.title }}, {{ item.year }} 
-            <form action="/rate", method="post">
-                <label for="rating">Give rating (between 1 and 10)</label>
+        <br>
+        <p>{{ item.title }}, {{ item.year }} <br>
+        {% if ratings1|length > 0%}
+            {% for rate in ratings1 %}
+                {% if item.id == rate.movie_id %}
+                   Current rating: {{ rate.rating }}</p> 
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+            <p><form action="/rate", method="post">
+                <label for="rating">Give or update rating (between 1 and 10)</label>
                 <input type="number" id="rating" name="rating" min="1" max="10">
                 <input type="hidden" name="id" value="{{ item.id }}">
                 <input type="hidden" name="media" value="{{ item.media }}">
                 <input type="submit" value="Save">
-            </form>
+                </form>
+        
         </p>
     </li>
-    
     {% endfor %}
     <br>
 <h2>Watched television series</h2>
     {% for item in watchlist2 %}
     <li>
-        <p>{{ item.title }}, {{ item.year }} 
-            <form action="/rate", method="post">
-                <label for="rating">Give rating (between 1 and 10)</label>
-                <input type="number" id="rating" name="rating" min="1" max="10">
-                <input type="hidden" name="id" value="{{ item.id }}">
-                <input type="hidden" name="media" value="{{ item.media }}">
-                <input type="submit" value="Save">
-            </form>
-        </p>
+        <br>
+        <p>{{ item.title }}, {{ item.year }} <br>
+        {% if ratings2|length > 0 %}
+            {% for rate in ratings2 %}
+                {% if item.id == rate.season_id %}
+                    Current rating: {{ rate.rating }} </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+            <p>
+                <form action="/rate", method="post">
+                    <label for="rating">Give or update rating (between 1 and 10)</label>
+                    <input type="number" id="rating" name="rating" min="1" max="10">
+                    <input type="hidden" name="id" value="{{ item.id }}">
+                    <input type="hidden" name="media" value="{{ item.media }}">
+                    <input type="submit" value="Save">
+                </form>
+            </p>
     </li>
-    
     {% endfor %}
+    <br>
 
 {% endblock %}
