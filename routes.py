@@ -158,10 +158,12 @@ def watched():
     try:
         watched_movies = movies.watched(user_id)
         watched_series = series.watched(user_id)
+        movie_ratings = ratings.get_movie_ratings(user_id)
+        season_ratings = ratings.get_season_ratings(user_id)
     except:
         return render_template("error.html", message="Watched lists unavailable")
 
-    return render_template("watched.html", watchlist1=watched_movies, watchlist2=watched_series)
+    return render_template("watched.html", watchlist1=watched_movies, watchlist2=watched_series, ratings1=movie_ratings, ratings2=season_ratings)
 
 @app.route("/rate", methods=["POST"])
 def rate():
