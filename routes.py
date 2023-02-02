@@ -67,9 +67,9 @@ def result():
 
     if not media_movies:
         series_media = series.search_series(query)
-        return render_template("result.html", media=series_media)
+        return render_template("result.html", media=series_media, keyword=query)
 
-    return render_template("result.html", media=media_movies)
+    return render_template("result.html", media=media_movies, keyword=query)
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
