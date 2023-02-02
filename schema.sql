@@ -11,7 +11,7 @@ CREATE TABLE movies (
 );
 CREATE TABLE series(
     id SERIAL PRIMARY KEY,
-    title TEXT
+    title TEXT UNIQUE
 );
 CREATE TABLE seasons(
     id SERIAL PRIMARY KEY,
