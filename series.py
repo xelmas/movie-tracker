@@ -72,15 +72,15 @@ def mark_watched(season_id, user_id):
     db.session.commit()
     return True
 
-def watched():
+def watched(user_id):
 
-    sql = "SELECT t.id, title, year, t.media FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 1"
-    result = db.session.execute(sql)
+    sql = "SELECT t.id, title, year, t.media FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 1 AND user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
     watched_series = result.fetchall()
     return watched_series
 
-def watchlist():
-    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 0"
-    result = db.session.execute(sql)
+def watchlist(user_id):
+    sql = "SELECT t.id, title, year, t.media, status FROM (SELECT S.id, title, year, media FROM seasons AS S JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist ON t.id=series_watchlist.season_id WHERE status = 0 AND user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
     series_watchlist = result.fetchall()
     return series_watchlist

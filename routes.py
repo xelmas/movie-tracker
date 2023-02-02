@@ -55,9 +55,9 @@ def Add_serie():
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
-
-    movie_watchlist = movies.watchlist()
-    series_watchlist = series.watchlist()
+    user_id = users.user_id()
+    movie_watchlist = movies.watchlist(user_id)
+    series_watchlist = series.watchlist(user_id)
     return render_template("watchlist.html", watchlist1=movie_watchlist, watchlist2=series_watchlist)
 
 @app.route("/result", methods=["GET"])
@@ -154,10 +154,10 @@ def update_watchlist():
 
 @app.route("/watched", methods=["GET"])
 def watched():
-
+    user_id = users.user_id()
     try:
-        watched_movies = movies.watched()
-        watched_series = series.watched()
+        watched_movies = movies.watched(user_id)
+        watched_series = series.watched(user_id)
     except:
         return render_template("error.html", message="Watched lists unavailable")
 

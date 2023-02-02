@@ -59,14 +59,14 @@ def mark_watched(movie_id, user_id):
         return False
     return True
 
-def watched():
-    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 1"
-    result = db.session.execute(sql)
+def watched(user_id):
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
     watched_movies = result.fetchall()
     return watched_movies
 
-def watchlist():
-    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 0"
-    result = db.session.execute(sql)
+def watchlist(user_id):
+    sql = "SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id WHERE status = 0 AND user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
     movie_watchlist = result.fetchall()
     return movie_watchlist
