@@ -14,10 +14,10 @@ Versio 1.0
 - Käyttäjä voi merkata elokuvan/sarjan katsotuksi
 - Käyttäjä näkee mitkä elokuvat/sarjat on katsonut
 - Käyttäjä voi antaa arvion elokuvalle/sarjalle
+- Käyttäjä voi muokata antamaansa arviota.
 
 
 To do:
-- Käyttäjä voi muokata antamaansa arviota.
 - Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
 - Käyttäjä näkee etusivulla kaikkien antamiensa arvosanojen keskiarvon.
 - Käyttäjä näkee etusivulla top 3 parhaimmat arviot saaneet elokuvat/sarjat.
@@ -41,7 +41,8 @@ Voit testata sovellusta paikallisesti:
     $ source venv/bin/activate\
     $ pip install -r ./requirements.txt
 
-4. Hae tietokannan skeema komennolla\
+4. Käynnistä taustalle tietokanta ja hae sitten tietokannan skeema komennolla\
     $ psql < schema.sql
+
 5. Käynnistä sovellus komennolla\
     $ flask run
