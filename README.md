@@ -27,9 +27,6 @@ Voit testata sovellusta paikallisesti:
 2. Luo kansioon .env-tiedosto, jossa\
     DATABASE_URL= tietokannan-paikallinen-osoite\
     SECRET_KEY= salainen-avain
-
-    missä tietokannan-paikallinen-osoite = postgresql+psycopg2:///user tai postgresql:///user riippuen PostgreSQL:n asennuksesta\
-    missä salainen-avain = oma luotu salainen avain
     
     Esim. voit luoda oman salaisen avaimen komennoilla:\
         $ python3\
