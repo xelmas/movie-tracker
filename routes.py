@@ -44,7 +44,7 @@ def logout():
 def search():
     return render_template("search.html")
 
-@app.route("/add", methods = ["GET", "POST"])
+@app.route("/add", methods = ["GET"])
 def add():
     return render_template("add.html")
 
@@ -58,13 +58,13 @@ def watchlist():
 @app.route("/result", methods=["GET"])
 def result():
     query = request.args["query"]
-    media_movies = movies.search_movie(query)
+    movie = movies.search_movie(query)
 
-    if not media_movies:
-        series_media = series.search_series(query)
-        return render_template("result.html", media=series_media, keyword=query)
+    if not movie:
+        serie = series.search_series(query)
+        return render_template("result.html", media=serie, keyword=query)
 
-    return render_template("result.html", media=media_movies, keyword=query)
+    return render_template("result.html", media=movie, keyword=query)
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
