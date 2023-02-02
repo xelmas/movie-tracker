@@ -101,14 +101,14 @@ def add_watchlist():
 
     if movies.movie_exists(title):
         movie_id = movies.get_movie_id(title)
-        if movies.add_watchlist(user_id, movie_id):
-            return redirect("/search")
+        movies.add_watchlist(user_id, movie_id)
+        return redirect("/search")
 
     if series.serie_exists(title):
         serie_id = series.get_serie_id(title)
         season_id = series.get_season_id(year, serie_id)
-        if series.add_watchlist(user_id, season_id):
-            return redirect("/search")
+        series.add_watchlist(user_id, season_id)
+        return redirect("/search")
 
     return render_template("error.html", message="Move/serie already on the watchlist or watched")
 
@@ -118,32 +118,27 @@ def update_watchlist():
     user_id = users.user_id()
     delete = request.form.getlist("delete")
     watched = request.form.getlist("watched")
-    try:
-        if len(delete) > 0:
-            for item in delete:
-                item = item.split("-")
-                id = item[0]
-                media = int(item[1])
-                if media == 0:
-                    if movies.delete_watchlist(user_id, id):
-                        continue
-                if media == 1:
-                    if series.delete_watchlist(user_id, id):
-                        continue
-
-        if len(watched) > 0:
-            for item in watched:
-                item = item.split("-")
-                id = item[0]
-                media = int(item[1])
-                if media == 0:
-                    if movies.mark_watched(id, user_id):
-                        continue
-                if media == 1:
-                    if series.mark_watched(id, user_id):
-                        continue
-    except:
-        return render_template("error.html", message="Updating watchlist was not successful")
+    
+    if len(delete) > 0:
+        for item in delete:
+            item = item.split("-")
+            id = item[0]
+            media = int(item[1])
+            if media == 0:
+                movies.delete_watchlist(user_id, id)
+            else:
+                series.delete_watchlist(user_id, id)
+                        
+    if len(watched) > 0:
+        for item in watched:
+            item = item.split("-")
+            id = item[0]
+            media = int(item[1])
+            if media == 0:
+                movies.mark_watched(id, user_id)
+            else:
+                series.mark_watched(id, user_id)
+                          
     return redirect("/watchlist")
     
 
