@@ -6,7 +6,6 @@ def create_rating(rating):
     rating_id = result.fetchone()[0]
     return rating_id
 
-
 def rate(user_id, media_id, rating, media):
 
     if not exists(user_id, media_id, media):
@@ -24,11 +23,11 @@ def rate(user_id, media_id, rating, media):
             db.session.execute(sql, {"rating_id":rating_id, "user_id":user_id, "media_id":media_id})
             db.session.commit()
             return True
-    
+            
     elif exists:
         rating_id = get_rating_id(user_id, media_id, media)
-        if update_rating(rating_id, rating):
-            return True
+        update_rating(rating_id, rating)
+        return True
 
     return False
 
@@ -48,13 +47,11 @@ def get_season_ratings(user_id):
     return ratings
 
 def update_rating(rating_id, new_rating):
-    try:
-        sql = "UPDATE ratings SET rating = :new_rating WHERE ratings.id =:rating_id"
-        db.session.execute(sql, {"new_rating":new_rating, "rating_id":rating_id})
-        db.session.commit()
-    except:
-        return False
-    return True
+    
+    sql = "UPDATE ratings SET rating = :new_rating WHERE ratings.id =:rating_id"
+    db.session.execute(sql, {"new_rating":new_rating, "rating_id":rating_id})
+    db.session.commit()
+   
 
 def exists(user_id, media_id, media):
 

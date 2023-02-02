@@ -31,14 +31,10 @@ def add_serie(title, year):
         return False
     return True
 
-def add_season(year, serie_id):
-    try:
-        sql = "INSERT into seasons (year, serie_id) VALUES (:year, :serie_id)"
-        db.session.execute(sql, {"serie_id":serie_id, "year":year})
-        db.session.commit()
-    except:
-        return False
-    return True
+def add_season(year, serie_id): 
+    sql = "INSERT into seasons (year, serie_id) VALUES (:year, :serie_id)"
+    db.session.execute(sql, {"serie_id":serie_id, "year":year})
+    db.session.commit()
 
 def get_serie_id(title):
     sql = "SELECT id FROM series WHERE title= :title"
@@ -65,27 +61,21 @@ def add_watchlist(user_id, season_id):
                  VALUES (:user_id, :season_id)"""
         db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
         db.session.commit()
-        return True
-    return False
-
+ 
 def delete_watchlist(user_id, season_id):
-    try:
-        sql = "DELETE FROM series_watchlist WHERE user_id=:user_id AND season_id=:season_id"
-        db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
-        db.session.commit()
-    except:
-        return False
-    return True
+    
+    sql = "DELETE FROM series_watchlist WHERE user_id=:user_id AND season_id=:season_id"
+    db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
+    db.session.commit()
+   
 
 def mark_watched(season_id, user_id):
-    try:
-        sql = """UPDATE series_watchlist SET status=1 WHERE series_watchlist.season_id=:season_id
-                AND series_watchlist.user_id=:user_id"""
-        db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
-        db.session.commit()
-    except:
-        return False
-    return True
+    
+    sql = """UPDATE series_watchlist SET status=1 WHERE series_watchlist.season_id=:season_id
+             AND series_watchlist.user_id=:user_id"""
+    db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
+    db.session.commit()
+   
 
 def watched(user_id):
 
