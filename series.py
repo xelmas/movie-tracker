@@ -77,21 +77,31 @@ def mark_watched(season_id, user_id):
 
 def watched(user_id):
 
-    sql = """SELECT t.id, title, year, t.media
+    sql = """SELECT T.id, title, year, T.media
             FROM (SELECT S.id, title, year, media FROM seasons AS S
-            JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist
-            ON t.id=series_watchlist.season_id
+            JOIN series ON S.serie_id=series.id) AS T JOIN series_watchlist
+            ON T.id=series_watchlist.season_id
             WHERE status = 1 AND user_id=:user_id"""
     result = db.session.execute(sql, {"user_id":user_id})
     watched_series = result.fetchall()
     return watched_series
 
 def watchlist(user_id):
-    sql = """SELECT t.id, title, year, t.media, status
+    sql = """SELECT T.id, title, year, T.media, status
             FROM (SELECT S.id, title, year, media FROM seasons AS S
-            JOIN series ON S.serie_id=series.id) AS t JOIN series_watchlist
-            ON t.id=series_watchlist.season_id
+            JOIN series ON S.serie_id=series.id) AS T JOIN series_watchlist
+            ON T.id=series_watchlist.season_id
             WHERE status = 0 AND user_id=:user_id"""
     result = db.session.execute(sql, {"user_id":user_id})
     series_watchlist = result.fetchall()
     return series_watchlist
+
+def count_watched(user_id):
+    sql = """SELECT COUNT(T.id)
+            FROM (SELECT S.id, title, year, media FROM seasons AS S
+            JOIN series ON S.serie_id=series.id) AS T JOIN series_watchlist
+            ON T.id=series_watchlist.season_id
+            WHERE status = 1 AND user_id=:user_id"""
+    result = db.session.execute(sql, {"user_id":user_id})
+    count = result.fetchone()[0]
+    return count
