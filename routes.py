@@ -62,14 +62,13 @@ def watchlist():
 
 @app.route("/result", methods=["GET"])
 def result():
-    users.check_csrf()
+
     query = request.args["query"]
     movie = movies.search_movie(query)
 
     if not movie:
         serie = series.search_series(query)
         return render_template("result.html", media=serie, keyword=query)
-
     return render_template("result.html", media=movie, keyword=query)
 
 @app.route("/create_movie", methods=["POST"])
