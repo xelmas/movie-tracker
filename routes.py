@@ -1,10 +1,15 @@
 from flask import render_template, request, redirect
 from app import app
+from db import db
 import users, movies, series, ratings
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    user_id = users.user_id()
+    movies_count = movies.count_watched(user_id)
+    series_count = series.count_watched(user_id)
+    return render_template("index.html", movies_count=movies_count, 
+                                         series_count=series_count)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
