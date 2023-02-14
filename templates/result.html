@@ -9,6 +9,7 @@
             <input type="hidden" name="title" value="{{item[0]}}">
             <input type="hidden" name="year" value="{{item[1]}}">
             <input type="submit" value="Add to watchlist">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
     </li>
 {% endfor %}

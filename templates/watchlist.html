@@ -17,6 +17,7 @@
     {% endfor %}
         {% if watchlist1|length > 0%}
             <input type="submit" name="button" value="Update selected movies">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         {% endif %}
         </form>
 
@@ -33,6 +34,7 @@
     {% endfor %}
         {% if watchlist2|length > 0%}
             <input type="submit" name="button" value="Update selected series">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         {% endif %}
         </form>
 </ul>

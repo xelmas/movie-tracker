@@ -10,6 +10,7 @@
     <p>Year released:<br>
     <input type="number" name="year"></p>
     <input type="submit" value="Add">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
 <h2>Add a new serie/season</h2>
@@ -20,6 +21,7 @@
     <p>Year released:<br>
     <input type="number" name="year"></p>
     <input type="submit" value="Add">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 <br>
 <a href="/">Go back</a>

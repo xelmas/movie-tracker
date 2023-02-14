@@ -19,6 +19,7 @@
                 <input type="hidden" name="id" value="{{ item.id }}">
                 <input type="hidden" name="media" value="{{ item.media }}">
                 <input type="submit" value="Save">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
         
         </p>
@@ -44,6 +45,7 @@
                     <input type="hidden" name="id" value="{{ item.id }}">
                     <input type="hidden" name="media" value="{{ item.media }}">
                     <input type="submit" value="Save">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             </p>
     </li>
