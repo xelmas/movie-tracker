@@ -35,7 +35,6 @@ def login():
 
 @app.route("/logout")
 def logout():
-
     users.logout()
     return redirect("/")
 
@@ -58,7 +57,7 @@ def watchlist():
 
 @app.route("/result", methods=["GET"])
 def result():
-
+    users.check_csrf()
     query = request.args["query"]
     movie = movies.search_movie(query)
 
@@ -70,7 +69,8 @@ def result():
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
-
+    
+    users.check_csrf()
     title = request.form["title"]
     year = request.form["year"]
     if movies.add_movie(title, year):
@@ -79,7 +79,7 @@ def create_movie():
 
 @app.route("/create_serie", methods=["POST"])
 def create_serie():
-
+    users.check_csrf()
     title = request.form["title"]
     year = request.form["year"]
     serie_exists = series.serie_exists(title)
@@ -96,7 +96,7 @@ def create_serie():
 
 @app.route("/add_watchlist", methods=["POST"])
 def add_watchlist():
-
+    users.check_csrf()
     title = request.form["title"]
     year = request.form["year"]
     user_id = users.user_id()
@@ -116,7 +116,7 @@ def add_watchlist():
 
 @app.route("/update_watchlist", methods=["GET","POST"])
 def update_watchlist():
-
+    users.check_csrf()
     user_id = users.user_id()
     delete = request.form.getlist("delete")
     seen = request.form.getlist("watched")
@@ -162,7 +162,7 @@ def watched():
 
 @app.route("/rate", methods=["POST"])
 def rate():
-
+    users.check_csrf()
     rating = int(request.form["rating"])
     media_id = request.form["id"]
     media = int(request.form["media"])
