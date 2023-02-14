@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Search movie or television serie</h2>
 <form action="/result">
-    Keyword: <input type="text" name="query">
+    Title <em>(e.g. Avengers)</em>: <input type="text" name="query">
     <br>
     <input type="submit" value="Search">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
