@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<h2>Home</h2>
 {% if session.user_id %}
+<div class="home"> <h2>Home</h2>
 <p>Welcome {{ session.user_name }}!</p> 
 <a href="/watchlist">Watchlist</a>
 <a href="/watched">Watched</a>
 <p>
+
 <form action="/result">
     Title <em>(e.g. Avengers)</em>: <input type="text" name="query">
     <br>
@@ -27,9 +28,10 @@
     {{ season.title}}, {{season.year}}, {{season.avg }}
 </p>
 {% endfor %}
+</div>
 {% else %}
-<p>Welcome! By creating an account on the site, you can keep track of which movies and television series
+<div class="about"> Welcome! By creating an account on the site, you can keep track of which movies and television series
     you have watched and give them reviews.
-    <br>You can also create your own list of movies and series to watch next. </p>
+    <br>You can also create your own list of movies and series to watch next. </div>
 {% endif %}
 {% endblock %}

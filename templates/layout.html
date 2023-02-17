@@ -1,16 +1,29 @@
 <!doctype html>
-<title>Movie tracker - {% block title %}{% endblock %}</title>
-<h1>Movie and series tracker</h1>
-<a href="/">Home</a>
-{% if session.user_id %}
-<a href="/logout">Log out</a>
-<a href="/search">Search</a>
-<a href="/add">Add</a>
-{% else %}
-<a href="/login">Log in</a>
-<a href="/register">Create an account</a>
-{% endif %}
-<hr>
+<html>
+    <head>
+        <title>Movie tracker - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <header>
+            <h1>Movie and series tracker</h1>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        {% if session.user_id %}
+                        <li><a href="/logout">Log out</a></li>
+                        <li><a href="/search">Search</a></li>
+                        <li><a href="/add">Add</a></li>
+                        {% else %}
+                        <li><a href="/login">Log in</a></li>
+                        <li><a href="/register">Create an account</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+        </header>
+        <div class="container"></div>
 {% block content %}{% endblock %}
-<hr>
+    </body>
+</html>
 

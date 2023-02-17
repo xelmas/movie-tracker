@@ -1,0 +1,35 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+header {
+    background-color: #DFB887;
+    height: 40px;
+    width: 100%;
+    opacity: .9;
+    margin-bottom: 50px;
+}
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+nav li {
+    display: inline-block;
+    padding: 0 .5em;
+}
+div.home {
+    padding: 10px 0 30px 0;
+    background-color: #E6E6FA;
+    -webkit-border-radius: 6px;
+       -moz-border-radius: 6px;
+            border-radius: 6px;
+}
+div.about {
+    padding: 10px 0 30px 0;
+    background-color: #E6E6FA;
+    -webkit-border-radius: 6px;
+       -moz-border-radius: 6px;
+            border-radius: 6px;
+}

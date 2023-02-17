@@ -5,6 +5,7 @@
     {% for item in watchlist1 %}
     <li>
         <br>
+        <hr>
         <p>{{ item.title }}, {{ item.year }} <br>
         {% if ratings1|length > 0%}
             {% for rate in ratings1 %}
@@ -21,7 +22,6 @@
                 <input type="submit" value="Save">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
-        
         </p>
     </li>
     {% endfor %}
@@ -30,6 +30,7 @@
     {% for item in watchlist2 %}
     <li>
         <br>
+        <hr>
         <p>{{ item.title }}, {{ item.year }} <br>
         {% if ratings2|length > 0 %}
             {% for rate in ratings2 %}
@@ -51,5 +52,4 @@
     </li>
     {% endfor %}
     <br>
-
 {% endblock %}
