@@ -8,8 +8,12 @@ def index():
     user_id = users.user_id()
     movies_count = movies.count_watched(user_id)
     series_count = series.count_watched(user_id)
+    avg_rating_movies = ratings.get_avg(user_id, 0)
+    avg_rating_series = ratings.get_avg(user_id, 1)
     return render_template("index.html", movies_count=movies_count, 
-                                         series_count=series_count)
+                                         series_count=series_count,
+                                         avg_movies=avg_rating_movies,
+                                         avg_series=avg_rating_series)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

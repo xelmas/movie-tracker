@@ -14,8 +14,8 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 </p>
-<p> Watched movies: {{ movies_count }} <br>
-    Watched series: {{ series_count }}
+<p> Watched movies: {{ movies_count }} Rating average: {{ avg_movies }} <br>
+    Watched series: {{ series_count }} Rating average: {{ avg_series }}
 </p>
 
 {% else %}
