@@ -120,7 +120,7 @@ def get_top5(media):
                     ORDER BY avg DESC
                     LIMIT 5)
                     AS top
-                 JOIN movies ON top.movie_id=movies.id"""
+                 JOIN movies ON top.movie_id=movies.id ORDER BY top.avg DESC"""
         result = db.session.execute(sql)
         result_top5 = result.fetchall()
     
