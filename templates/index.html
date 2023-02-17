@@ -17,7 +17,16 @@
 <p> Watched movies: {{ movies_count }} Rating average: {{ avg_movies }} <br>
     Watched series: {{ series_count }} Rating average: {{ avg_series }}
 </p>
-
+<h3>TOP 5 movies</h3>
+<p> {% for movie in top5_movies %}
+     {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}
+</p>
+{% endfor %}
+<h3>TOP 5 seasons </h3>
+<p> {% for season in top5_series %}
+    {{ season.title}}, {{season.year}}, {{season.avg }}
+</p>
+{% endfor %}
 {% else %}
 <p>Welcome! By creating an account on the site, you can keep track of which movies and television series
     you have watched and give them reviews.
