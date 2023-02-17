@@ -15,12 +15,13 @@ Versio 1.0
 - Käyttäjä näkee mitkä elokuvat/sarjat on katsonut
 - Käyttäjä voi antaa arvion elokuvalle/sarjalle
 - Käyttäjä voi muokata antamaansa arviota.
+- Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
+- Käyttäjä näkee etusivulla antamiensa arvosanojen keskiarvon.
+- Käyttäjä näkee etusivulla top 5 parhaimmat arviot saaneet elokuvat/sarjat.
 
 
 To do:
-- Käyttäjä näkee etusivulla tilaston montako elokuvaa/tuotantokautta sarjoista on katsonut.
-- Käyttäjä näkee etusivulla kaikkien antamiensa arvosanojen keskiarvon.
-- Käyttäjä näkee etusivulla top 3 parhaimmat arviot saaneet elokuvat/sarjat.
+- Ulkoasu
 
 Voit testata sovellusta paikallisesti:
 1. Kloonaa tämä repositorio omalle koneelle ja siirry juurikansioon
