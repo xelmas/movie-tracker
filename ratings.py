@@ -105,3 +105,46 @@ def get_avg(user_id, media):
         rating_avg = result.fetchone()[0]
     
     return rating_avg
+
+def get_top5(media):
+
+    if media == 0:
+
+        sql = """SELECT title, year, top.avg
+                 FROM 
+                    (SELECT movie_id, AVG(rating):: numeric(10,2)
+                    FROM ratings
+                    JOIN movie_ratings AS mov
+                    ON mov.rating_id=ratings.id
+                    GROUP BY movie_id
+                    ORDER BY avg DESC
+                    LIMIT 5)
+                    AS top
+                 JOIN movies ON top.movie_id=movies.id"""
+        result = db.session.execute(sql)
+        result_top5 = result.fetchall()
+    
+    else:
+        sql = """SELECT season.title, season.year, top.avg
+                 FROM 
+                    (SELECT season_id, AVG(rating):: numeric(10,2)
+                    FROM ratings
+                    JOIN season_ratings AS s
+                    ON s.rating_id=ratings.id
+                    GROUP BY season_id
+                    ORDER BY avg DESC
+                    LIMIT 5)
+                    AS top
+                 JOIN
+                    (SELECT s.id, title, year
+                    FROM seasons AS s
+                    JOIN series
+                    ON s.serie_id=series.id)
+                    AS season
+                 ON top.season_id=season.id"""
+        result = db.session.execute(sql)
+        result_top5 = result.fetchall()
+
+    return result_top5
+
+
