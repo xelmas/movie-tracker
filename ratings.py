@@ -88,3 +88,20 @@ def get_rating_id(user_id, media_id, media):
         rating_id = result.fetchone()[0]
 
     return rating_id
+
+def get_avg(user_id, media):
+
+    if media == 0:
+        sql = """SELECT AVG(rating):: numeric(10,2)
+                 FROM ratings JOIN movie_ratings AS M ON M.rating_id=ratings.id
+                 WHERE user_id=:user_id"""
+        result = db.session.execute(sql, {"user_id":user_id})
+        rating_avg = result.fetchone()[0]
+    else:
+        sql = """SELECT AVG(rating):: numeric(10,2)
+                 FROM ratings JOIN season_ratings AS S ON S.rating_id=ratings.id
+                 WHERE user_id=:user_id"""
+        result = db.session.execute(sql, {"user_id":user_id})
+        rating_avg = result.fetchone()[0]
+    
+    return rating_avg
