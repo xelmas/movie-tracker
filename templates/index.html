@@ -2,36 +2,49 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 {% if session.user_id %}
-<div class="home"> <h2>Home</h2>
-<p>Welcome {{ session.user_name }}!</p> 
-<a href="/watchlist">Watchlist</a>
-<a href="/watched">Watched</a>
-<p>
+<body>
+<div class="container">
+  <div class="row row-cols-4 p-3 mb-2 text-light">
+    <div class="col-12 py-2 center-block text-center">
+      <h2>Home</h2>
+    </div>
+    <div class="col-4 py-2">
+      <p>Welcome {{ session.user_name }}!</p> 
+      <a href="/watchlist" class="nav-link px-2 text-warning">Watchlist</a>
+      <a href="/watched" class="nav-link px-2 text-warning">Watched</a>
+    </div>
+    <div class="col-4 py-2">
+      <p> Watched movies: {{ movies_count }} <br> Rating average: {{ avg_movies }} </p>
+      <p> Watched series: {{ series_count }} <br> Rating average: {{ avg_series }} </p>
+    </div>
+    <div class="col-4 py-2">
+      <form action="/result" class="navbar-form navbar-right" role="search" id="navBarSearch">
+        Title <em>(e.g. Avengers)</em>: <input type="text" name="query" placeholder="search...">
+        <input type="submit" value="Search">
+      </form>
+    </div>
+    <div class="col-6 py-5 px-lg-5 border">
+      <h4>TOP 5 movies</h4>
+      <p> {% for movie in top5_movies %}
+            {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}
+      </p>
+          {% endfor %}
+    </div>
+    <div class="col-6 py-5 px-lg-5 border">
+      <h4>TOP 5 seasons </h4>
+      <p> {% for season in top5_series %}
+            {{ season.title}}, {{season.year}}, {{season.avg }}
+      </p>
+          {% endfor %}
+    </div>
 
-<form action="/result">
-    Title <em>(e.g. Avengers)</em>: <input type="text" name="query">
-    <br>
-    <input type="submit" value="Search">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-</p>
-<p> Watched movies: {{ movies_count }} Rating average: {{ avg_movies }} <br>
-    Watched series: {{ series_count }} Rating average: {{ avg_series }}
-</p>
-<h3>TOP 5 movies</h3>
-<p> {% for movie in top5_movies %}
-     {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}
-</p>
-{% endfor %}
-<h3>TOP 5 seasons </h3>
-<p> {% for season in top5_series %}
-    {{ season.title}}, {{season.year}}, {{season.avg }}
-</p>
-{% endfor %}
-</div>
 {% else %}
-<div class="about"> Welcome! By creating an account on the site, you can keep track of which movies and television series
-    you have watched and give them reviews.
-    <br>You can also create your own list of movies and series to watch next. </div>
+  <div class="col-12 p-3 mb-2 text-light">
+      Welcome! By creating an account on the site, you can keep track of which movies and television series
+        you have watched and give them reviews. You can also create your own list of movies and series to watch next. 
+    </div>
+</div>
 {% endif %}
 {% endblock %}
+
+</body>

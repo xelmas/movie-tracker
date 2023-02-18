@@ -1,29 +1,39 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Movie tracker - {% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <header>
-            <h1>Movie and series tracker</h1>
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        {% if session.user_id %}
-                        <li><a href="/logout">Log out</a></li>
-                        <li><a href="/search">Search</a></li>
-                        <li><a href="/add">Add</a></li>
-                        {% else %}
-                        <li><a href="/login">Log in</a></li>
-                        <li><a href="/register">Create an account</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-        </header>
-        <div class="container"></div>
+  <head>
+    <title>Movie tracker - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+      <style>
+          #navBarSearch input[type=text]{width:130px !important;}
+      </style>
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+    <header class="p-3 mb-2 bg-light text-dark text-center">
+      <h1>Movie and series tracker</h1>
+      <div class="divider">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="/" class="nav-link px-2 text-warning">Home</a></li>
+              {% if session.user_id %}
+                <li><a href="/logout" class="nav-link px-2 text-white" >Log out</a></li>
+                <li><a href="/search"class="nav-link px-2 text-white" >Search</a></li>
+                <li><a href="/add" class="nav-link px-2 text-white">Add</a></li>
+              {% else %}
+                <li><a href="/login" class="nav-link px-2 text-white">Log in</a></li>
+                <li><a href="/register" class="nav-link px-2 text-white">Create an account</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container"></div>
 {% block content %}{% endblock %}
-    </body>
+  </body>
 </html>
 
