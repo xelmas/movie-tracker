@@ -1,11 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Register a new account {% endblock %}
 {% block content %}
-<h2>Register account</h2>
-<form action="/register" method="post">
-  <p>Username: <input type="text" name="username"></p>
-  <p>Password: <input type="password" name="password1"></p>
-  <p>Password (confirmation): <input type="password" name="password2"></p>
-  <input type="submit" value="Register">
-</form>
+<div class="container">
+  <div class="col-12 py-2 center-block text-center text-white">
+    <h2>Register account</h2>
+  </div>
+  <div class="row justify-content-center">
+      <form action="/register" method="post">
+        <div class="form-group text-white"> 
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" name="username" placeholder="username">
+        </div>
+        <div class="form-group text-white"> 
+          <label for="password1">Password:</label>
+          <input type="password" class="form-control" name="password1" placeholder="password">
+        </div>
+        <div class="form-group text-white"> 
+          <label for="password2">Password (confirmation):</label>
+          <input type="password" class="form-control" name="password2" placeholder="password">
+        </div>
+        <div class="form-group text-white"> 
+          <input type="submit" class="btn btn-warning" value="Register">
+        </div>
+     </form>
+  </div>
 {% endblock %}
+</div>
