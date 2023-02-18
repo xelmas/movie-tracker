@@ -4,25 +4,25 @@
 
 <h2>Add a new movie</h2>
 <form action="/create_movie" method="POST">
-    <p>Fill in the information:<br>
-    <p>Title:<br>
-    <input type="text" name="title"></p>
-    <p>Year released:<br>
-    <input type="number" name="year"></p>
-    <input type="submit" value="Add">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+  <p>Fill in the information:<br>
+  <p>Title:<br>
+  <input type="text" name="title"></p>
+  <p>Year released:<br>
+  <input type="number" name="year"></p>
+  <input type="submit" value="Add">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 
 <h2>Add a new serie/season</h2>
 <form action="/create_serie" method="POST">
-    <p>Fill in the information:<br>
-    <p>Title:<br>
-    <input type="text" name="title"></p>
-    <p>Year released:<br>
-    <input type="number" name="year"></p>
-    <input type="submit" value="Add">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
+  <p>Fill in the information:<br>
+  <p>Title:<br>
+  <input type="text" name="title"></p>
+  <p>Year released:<br>
+  <input type="number" name="year"></p>
+  <input type="submit" value="Add">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
 <br>
 <a href="/">Go back</a>
 {% endblock %}

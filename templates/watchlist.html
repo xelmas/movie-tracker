@@ -4,38 +4,38 @@
 <h2>Watchlist</h2>
 
 <ul>
-    <h3>Movies</h3>
+  <h3>Movies</h3>
     {% for item in watchlist1 %}
     <li>
-        <p>{{ item.title }}, {{ item.year }} <br>
-        <form action="/update_watchlist", method="post">
-            <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-            <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-            <br>
-        </p>
+      <p>{{ item.title }}, {{ item.year }} <br>
+      <form action="/update_watchlist", method="post">
+        <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
+        <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
+        <br>
+      </p>
     </li>
     {% endfor %}
-        {% if watchlist1|length > 0%}
-            <input type="submit" name="button" value="Update selected movies">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        {% endif %}
-        </form>
+    {% if watchlist1|length > 0%}
+      <input type="submit" name="button" value="Update selected movies">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    {% endif %}
+    </form>
 
 <h3>Television Series</h3>
-    {% for item in watchlist2 %}
-    <li>
-        <p>{{ item.title }}, {{ item.year }} <br>
-        <form action="/update_watchlist" method="post">
-            <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-            <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-            <br>
-        </p>
-    </li>
+  {% for item in watchlist2 %}
+  <li>
+    <p>{{ item.title }}, {{ item.year }} <br>
+    <form action="/update_watchlist" method="post">
+      <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
+      <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
+      <br>
+      </p>
+  </li>
     {% endfor %}
-        {% if watchlist2|length > 0%}
-            <input type="submit" name="button" value="Update selected series">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        {% endif %}
-        </form>
+      {% if watchlist2|length > 0%}
+        <input type="submit" name="button" value="Update selected series">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      {% endif %}
+    </form>
 </ul>
 {% endblock %}

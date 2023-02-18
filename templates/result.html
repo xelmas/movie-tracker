@@ -2,23 +2,21 @@
 {% block title %}Search result {% endblock %}
 {% block content %}
 <ul>
-    {% for item in media%}
-    <li>
-        {{ item[0] }}, {{item[1]}}
-        <form action="/add_watchlist" method="post">
-            <input type="hidden" name="title" value="{{item[0]}}">
-            <input type="hidden" name="year" value="{{item[1]}}">
-            <input type="submit" value="Add to watchlist">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            </form>
-    </li>
-{% endfor %}
+  {% for item in media%}
+  <li> {{ item[0] }}, {{item[1]}}
+    <form action="/add_watchlist" method="post">
+      <input type="hidden" name="title" value="{{item[0]}}">
+      <input type="hidden" name="year" value="{{item[1]}}">
+      <input type="submit" value="Add to watchlist">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+  </li>
+  {% endfor %}
 </ul>
-
 {% if media|length == 0 %}
-    <p> No results by searching for "{{ keyword }}". Check spelling or try other keywords.
-    <br> If the movie or series is not found, you can also add it to the database itself by entering the data <a href="/add">here</a>
-    </p>
+<p> No results by searching for "{{ keyword }}". Check spelling or try other keywords.
+<br> If the movie or series is not found, you can also add it to the database itself by entering the data <a href="/add">here</a>
+</p>
 {% endif %}
 <a href="/search">Go back</a>
 {% endblock %}
