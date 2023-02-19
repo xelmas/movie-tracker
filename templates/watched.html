@@ -1,10 +1,15 @@
 {% extends "layout.html" %}
 {% block title %} Watched {% endblock %}
 {% block content %}
-<h2>Watched movies</h2>
-  {% for item in watchlist1 %}
-  <li>
-    <br>
+<div class="container">
+  <div class="col-12 py-2 center-block text-center text-white">
+    <h2>Watched</h2>
+  </div>
+  <div class="row row row-cols-2 p-3 mb-2 text-white">
+    <div class="col-6 border px-lg-5 py-2">
+      <h3>Movies</h3>
+        {% for item in watchlist1 %}
+        <li>
         <p>{{ item.title }}, {{ item.year }} <br>
         {% if ratings1|length > 0%}
             {% for rate in ratings1 %}
@@ -22,22 +27,22 @@
               <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </p>
-  </li>
-  {% endfor %}
-<br>
-<h2>Watched television series</h2>
-  {% for item in watchlist2 %}
-  <li>
-    <br>
-    <p>{{ item.title }}, {{ item.year }} <br>
-        {% if ratings2|length > 0 %}
+        </li>
+        {% endfor %}
+    </div>
+    <div class="col-6 border px-lg-5 py-2">
+      <h2>Series</h2>
+        {% for item in watchlist2 %}
+        <li>
+        <p>{{ item.title }}, {{ item.year }} <br>
+          {% if ratings2|length > 0 %}
             {% for rate in ratings2 %}
                 {% if item.id == rate.season_id %}
                     Current rating: {{ rate.rating }} </p>
                 {% endif %}
             {% endfor %}
         {% endif %}
-    <p>
+       <p>
       <form action="/rate", method="post">
         <label for="rating">Give or update rating (between 1 and 10)</label>
         <input type="number" id="rating" name="rating" min="1" max="10">
@@ -49,5 +54,6 @@
     </p>
   </li>
   {% endfor %}
-<br>
+  </div>
 {% endblock %}
+</div>

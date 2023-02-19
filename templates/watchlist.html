@@ -1,41 +1,55 @@
 {% extends "layout.html" %}
 {% block title %} Watchlist {% endblock %}
 {% block content %}
-<h2>Watchlist</h2>
-
-<ul>
-  <h3>Movies</h3>
-    {% for item in watchlist1 %}
-    <li>
-      <p>{{ item.title }}, {{ item.year }} <br>
-      <form action="/update_watchlist", method="post">
-        <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-        <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-        <br>
-      </p>
-    </li>
-    {% endfor %}
-    {% if watchlist1|length > 0%}
-      <input type="submit" name="button" value="Update selected movies">
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    {% endif %}
-    </form>
-
-<h3>Television Series</h3>
-  {% for item in watchlist2 %}
-  <li>
-    <p>{{ item.title }}, {{ item.year }} <br>
-    <form action="/update_watchlist" method="post">
-      <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-      <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-      <br>
-      </p>
-  </li>
-    {% endfor %}
-      {% if watchlist2|length > 0%}
-        <input type="submit" name="button" value="Update selected series">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-      {% endif %}
-    </form>
-</ul>
+<div class="container">
+  <div class="col-12 py-2 center-block text-center text-white">
+    <h2>Watchlist</h2>
+  </div>
+  <div class="row row row-cols-2 p-3 mb-2 text-white">
+    <div class="col-6 border px-lg-5 py-2">
+    <ul>
+      <h3>Movies</h3>
+        {% for item in watchlist1 %}
+        <li>
+          <p>{{ item.title }}, {{ item.year }} <br>
+          <form action="/update_watchlist" method="post">
+            <div class="form-group text-white"> 
+              <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
+              <br>
+              <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
+              <br>
+           </p>
+        </li>
+        {% endfor %}
+        {% if watchlist1|length > 0%}
+          <input type="submit" class="btn btn-warning" value="Update selected movies">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% endif %}
+            </div>
+          </form>
+    </ul>
+  <div class="col-6 border px-lg-5 py-2">
+    <ul>
+      <h3>Series</h3>
+        {% for item in watchlist2 %}
+         <li>
+           <p>{{ item.title }}, {{ item.year }} <br>
+           <form action="/update_watchlist" method="post">
+             <div class="form-group text-white"> 
+               <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
+               <br>
+               <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
+               <br> 
+            </p>
+          </li>
+        {% endfor %}
+        {% if watchlist2|length > 0%}
+          <input type="submit" class="btn btn-warning" value="Update selected series">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% endif %}
+             </div>
+            </form>
+    </ul>
+  </div>
 {% endblock %}
+</div>
