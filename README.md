@@ -1,4 +1,4 @@
-Track watched movies and TV-series
+#Track watched movies and TV-series
 
 Sovelluksen avulla käyttäjä voi seurata mitä elokuvia ja sarjoja on katsonut ja antaa niille arvioita. Käyttäjä voi myös lisätä listalle seuraavaksi katsottavat elokuvat ja sarjat.
 
@@ -19,11 +19,16 @@ Versio 1.0
 - Käyttäjä näkee etusivulla antamiensa arvosanojen keskiarvon.
 - Käyttäjä näkee etusivulla top 5 parhaimmat arviot saaneet elokuvat/sarjat.
 
-
 To do:
-- Ulkoasu
+- Watchlist ja Watched sivujen ulkoasut
+- Nav bar tekstit keskelle
+- Home-sivun hakupalkin muokkaus
 
-Voit testata sovellusta paikallisesti:
+Sovellus on testattavissa fly.io:ssa
+https://tsoha-movie-tracker.fly.dev/
+
+
+Voit testata sovellusta myös paikallisesti:
 1. Kloonaa tämä repositorio omalle koneelle ja siirry juurikansioon
 2. Luo kansioon .env-tiedosto, jossa\
     DATABASE_URL= tietokannan-paikallinen-osoite\
