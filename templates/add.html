@@ -1,28 +1,48 @@
 {% extends "layout.html" %}
 {% block title %}Add movie or serie/season {% endblock %}
 {% block content %}
-
-<h2>Add a new movie</h2>
-<form action="/create_movie" method="POST">
-  <p>Fill in the information:<br>
-  <p>Title:<br>
-  <input type="text" name="title"></p>
-  <p>Year released:<br>
-  <input type="number" name="year"></p>
-  <input type="submit" value="Add">
-  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-</form>
-
-<h2>Add a new serie/season</h2>
-<form action="/create_serie" method="POST">
-  <p>Fill in the information:<br>
-  <p>Title:<br>
-  <input type="text" name="title"></p>
-  <p>Year released:<br>
-  <input type="number" name="year"></p>
-  <input type="submit" value="Add">
-  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-</form>
-<br>
-<a href="/">Go back</a>
+<div class="container">
+  <div class="col-12 py-4 center-block text-center text-white">
+    <h2>Add a new movie</h2>
+  </div>
+  <div class="row justify-content-center">
+    <form action="/create_movie" method="POST">
+      <div class="form-group text-white"> 
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" name="title" placeholder="title">
+      </div>
+      <div class="form-group text-white">
+        <label for="number">Year released:</label>
+        <input type="number" class="form-control" name="year" placeholder="year">
+      </div>
+      <div class="form-group text-white">
+        <input type="submit" class="btn btn-warning" value="Add">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      </div>
+    </form>
+  </div>
+  <div class="col-12 py-4 center-block text-center text-white">
+    <h2>Add a new serie/season</h2>
+  </div>
+  <div class="row justify-content-center">
+    <form action="/create_serie" method="POST">
+      <div class="form-group text-white"> 
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" name="title" placeholder="title">
+      </div>
+      <div class="form-group text-white">
+        <label for="number">Year released:</label>
+        <input type="number" class="form-control" name="year" placeholder="year">
+      </div>
+      <div class="form-group text-white">
+        <input type="submit" class="btn btn-warning" value="Add">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="text-white center-block text-center py-2">
+    <p><a href="/" class="text-warning">Go back</a></p>
+  </div>
 {% endblock %}
+</div>
