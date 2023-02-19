@@ -68,6 +68,7 @@ def watchlist(user_id):
     return movie_watchlist
 
 def count_watched(user_id):
+    count = 0
     sql = """SELECT COUNT(movies.id) FROM movies_watchlist JOIN movies
             ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id"""
     result = db.session.execute(sql, {"user_id":user_id})

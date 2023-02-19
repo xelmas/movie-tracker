@@ -97,6 +97,7 @@ def watchlist(user_id):
     return series_watchlist
 
 def count_watched(user_id):
+    count = 0
     sql = """SELECT COUNT(T.id)
             FROM (SELECT S.id, title, year, media FROM seasons AS S
             JOIN series ON S.serie_id=series.id) AS T JOIN series_watchlist
