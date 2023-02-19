@@ -26,26 +26,3 @@ To do:
 
 Sovellus on testattavissa fly.io:ssa
 https://tsoha-movie-tracker.fly.dev/
-
-
-Voit testata sovellusta myös paikallisesti:
-1. Kloonaa tämä repositorio omalle koneelle ja siirry juurikansioon
-2. Luo kansioon .env-tiedosto, jossa\
-    DATABASE_URL= tietokannan-paikallinen-osoite\
-    SECRET_KEY= salainen-avain
-    
-    Esim. voit luoda oman salaisen avaimen komennoilla:\
-        $ python3\
-        >>> import secrets\
-        >>> secrets.token_hex(16)
-
-3. Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla\
-    $ python3 -m venv venv\
-    $ source venv/bin/activate\
-    $ pip install -r ./requirements.txt
-
-4. Käynnistä taustalle tietokanta ja hae sitten tietokannan skeema komennolla\
-    $ psql < schema.sql
-
-5. Käynnistä sovellus komennolla\
-    $ flask run
