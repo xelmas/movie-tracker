@@ -4,7 +4,7 @@
 {% if session.user_id %}
 <body>
 <div class="container">
-  <div class="row row-cols-4 p-3 mb-2 text-light">
+  <div class="row row-cols-4 p-3 mb-2 text-white">
     <div class="col-12 py-2 center-block text-center">
       <h2>Home</h2>
     </div>
@@ -29,24 +29,28 @@
         <input type="submit" class="btn btn-warning" value="Search">
       </form>
     </div>
-    <div class="col-6 py-4 px-lg-5 border">
-      <ol>
-        <h4>TOP 5 movies</h4>
-        <br>
+    <div class="col-6 py-4 border">
+      <div class="d-flex justify-content-center">
+        <ol>
+          <h4>TOP 5 movies</h4>
+          <br>
           {% for movie in top5_movies %}
           <li> {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}</li><br>
           {% endfor %}
-      </ol>
-      
+        </ol>
+      </div>
     </div>
-    <div class="col-6 py-4 px-lg-5 border">
-      <ol>
-        <h4>TOP 5 seasons </h4>
-        <br>
-        {% for season in top5_series %}
+    
+    <div class="col-6 py-4 border">
+      <div class="d-flex justify-content-center">
+        <ol>
+          <h4>TOP 5 seasons </h4>
+          <br>
+          {% for season in top5_series %}
           <li> {{ season.title}}, {{season.year}}, {{season.avg }}</li><br>
-        {% endfor %}
-      </ol>
+          {% endfor %}
+        </ol>
+      </div>
     </div>
 
 {% else %}

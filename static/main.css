@@ -26,7 +26,24 @@ ol li::before {
   display: inline-block;
   width: 1em;
   margin-left: -1em;
+  padding-right: 1em;
 }
 ol li {
   counter-increment: li;
+}
+#navBarSearch input[type=text]{width: 130px !important;}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.column {
+  display: flex;
+  flex: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+.searchBox {
+margin-left:auto;
 }
