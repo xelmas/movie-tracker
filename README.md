@@ -22,10 +22,9 @@ Versio 1.0
 To do:
 - Ulkoasun viimeistely yleisesti
 - Watchlist ja Watched sivujen ulkoasut
-- Nav bar tekstit keskelle
 - Home-sivun hakupalkin muokkaus
 
 ## Käyttö
-Sovellus on testattavissa fly.io:ssa \
+Sovellus on testattavissa fly.io:ssa. \
 Jos ensimmäisellä kerralla ilmestyy error, päivitä sivu. \
 https://tsoha-movie-tracker.fly.dev/
