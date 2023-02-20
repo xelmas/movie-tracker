@@ -90,7 +90,7 @@ def get_rating_id(user_id, media_id, media):
     return rating_id
 
 def get_avg(user_id, media):
-    rating_avg = 0
+    
     if media == 0:
         sql = """SELECT AVG(rating):: numeric(10,2)
                  FROM ratings JOIN movie_ratings AS M ON M.rating_id=ratings.id
@@ -103,8 +103,11 @@ def get_avg(user_id, media):
                  WHERE user_id=:user_id"""
         result = db.session.execute(sql, {"user_id":user_id})
         rating_avg = result.fetchone()[0]
-    
-    return rating_avg
+
+    if rating_avg:
+        return rating_avg
+
+    return 0
 
 def get_top5(media):
 
