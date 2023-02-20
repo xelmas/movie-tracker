@@ -16,3 +16,17 @@ body {
 input::placeholder {
   font-style: italic;
 }
+ol {
+  list-style: none;
+  counter-reset: li;
+}
+ol li::before {
+  content: counter(li) ".";
+  color: gold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+ol li {
+  counter-increment: li;
+}

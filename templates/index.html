@@ -9,13 +9,16 @@
       <h2>Home</h2>
     </div>
     <div class="col-4 py-2">
-      <p>Welcome {{ session.user_name }}!</p> 
+      <h4>Welcome {{ session.user_name }}!</h4> 
       <a href="/watchlist" class="nav-link px-2 text-warning">Watchlist</a>
       <a href="/watched" class="nav-link px-2 text-warning">Watched</a>
     </div>
     <div class="col-4 py-2">
-      <p> Watched movies: {{ movies_count }} <br> Rating average: {{ avg_movies }} </p>
-      <p> Watched series: {{ series_count }} <br> Rating average: {{ avg_series }} </p>
+      <p>Watched movies: {{ movies_count }}</p>
+      <p>Rating average: {{ avg_movies }}</p> 
+      <br>
+      <p>Watched series: {{ series_count }}</p>
+      <p>Rating average: {{ avg_series }}</p>
     </div>
     <div class="col-4 py-2">
       <form action="/result" class="navbar-form navbar-right" role="search" id="navBarSearch">
@@ -26,19 +29,24 @@
         <input type="submit" class="btn btn-warning" value="Search">
       </form>
     </div>
-    <div class="col-6 py-5 px-lg-5 border">
-      <h4>TOP 5 movies</h4>
-      <p> {% for movie in top5_movies %}
-            {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}
-      </p>
+    <div class="col-6 py-4 px-lg-5 border">
+      <ol>
+        <h4>TOP 5 movies</h4>
+        <br>
+          {% for movie in top5_movies %}
+          <li> {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}</li><br>
           {% endfor %}
+      </ol>
+      
     </div>
-    <div class="col-6 py-5 px-lg-5 border">
-      <h4>TOP 5 seasons </h4>
-      <p> {% for season in top5_series %}
-            {{ season.title}}, {{season.year}}, {{season.avg }}
-      </p>
-          {% endfor %}
+    <div class="col-6 py-4 px-lg-5 border">
+      <ol>
+        <h4>TOP 5 seasons </h4>
+        <br>
+        {% for season in top5_series %}
+          <li> {{ season.title}}, {{season.year}}, {{season.avg }}</li><br>
+        {% endfor %}
+      </ol>
     </div>
 
 {% else %}
