@@ -43,7 +43,7 @@ def get_serie_id(title):
 
 def get_season_id(year, serie_id):
     sql = """SELECT seasons.id FROM seasons JOIN series ON seasons.serie_id = series.id
-             WHERE year =:year AND series.id = :serie_id"""
+             WHERE year =:year AND series.id =:serie_id"""
     result = db.session.execute(sql, {"year":year, "serie_id":serie_id})
     season_id = result.fetchone()[0]
     return season_id
@@ -51,7 +51,7 @@ def get_season_id(year, serie_id):
 def add_watchlist(user_id, season_id):
 
     sql = """SELECT EXISTS (SELECT 1 FROM series_watchlist
-             WHERE season_id = :season_id AND user_id=:user_id)"""
+             WHERE season_id =:season_id AND user_id=:user_id)"""
     exists = db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
     exists = exists.fetchone()[0]
 
@@ -60,6 +60,8 @@ def add_watchlist(user_id, season_id):
                  VALUES (:user_id, :season_id)"""
         db.session.execute(sql, {"user_id":user_id, "season_id":season_id})
         db.session.commit()
+        return True
+    return False
 
 def delete_watchlist(user_id, season_id):
 

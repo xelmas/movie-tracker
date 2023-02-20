@@ -16,7 +16,6 @@ def add_movie(title, year):
     return True
 
 def add_watchlist(user_id, movie_id):
-
     sql = """SELECT EXISTS (SELECT 1 FROM movies_watchlist
              WHERE movie_id = :movie_id AND user_id=:user_id)"""
     exists = db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
@@ -27,9 +26,10 @@ def add_watchlist(user_id, movie_id):
                  VALUES (:user_id, :movie_id)"""
         db.session.execute(sql, {"user_id":user_id, "movie_id":movie_id})
         db.session.commit()
+        return True
+    return False
 
 def delete_watchlist(user_id, movie_id):
-
     sql = "DELETE FROM movies_watchlist WHERE user_id=:user_id AND movie_id=:movie_id"
     db.session.execute(sql, {"user_id":user_id, "movie_id":movie_id})
     db.session.commit()
@@ -47,7 +47,6 @@ def movie_exists(title):
     return exists
 
 def mark_watched(movie_id, user_id):
-
     sql = """UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id
             AND movies_watchlist.user_id=:user_id"""
     db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})

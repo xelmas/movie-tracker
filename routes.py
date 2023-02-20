@@ -1,6 +1,5 @@
 from flask import render_template, request, redirect
 from app import app
-from db import db
 import users, movies, series, ratings
 
 @app.route("/")
@@ -22,7 +21,6 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-
     if request.method == "GET":
         return render_template("register.html")
     if request.method == "POST":
@@ -37,7 +35,6 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-
     if request.method == "GET":
         return render_template("login.html")
     if request.method == "POST":
@@ -62,7 +59,6 @@ def add():
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
-
     user_id = users.user_id()
     movie_watchlist = movies.watchlist(user_id)
     series_watchlist = series.watchlist(user_id)
@@ -71,7 +67,6 @@ def watchlist():
 
 @app.route("/result", methods=["GET"])
 def result():
-
     query = request.args["query"]
     movie = movies.search_movie(query)
 
@@ -82,10 +77,10 @@ def result():
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
-    
     users.check_csrf()
     title = request.form["title"]
     year = request.form["year"]
+
     if movies.add_movie(title, year):
         return redirect("/")
     return render_template("error.html", message="Movie already in the database")
@@ -96,12 +91,14 @@ def create_serie():
     title = request.form["title"]
     year = request.form["year"]
     serie_exists = series.serie_exists(title)
+
     if not serie_exists:
         series.add_serie(title, year)
         return redirect("/")
 
     serie_id = series.get_serie_id(title)
     season_exists = series.season_exists(year, serie_id)
+
     if not season_exists:
         series.add_season(year, serie_id)
         return redirect("/")
@@ -114,16 +111,16 @@ def add_watchlist():
     year = request.form["year"]
     user_id = users.user_id()
 
-    if movies.movie_exists(title):
+    if  movies.movie_exists(title):
         movie_id = movies.get_movie_id(title)
-        movies.add_watchlist(user_id, movie_id)
-        return redirect("/search")
+        if movies.add_watchlist(user_id, movie_id):
+            return redirect("/search")
 
-    if series.serie_exists(title):
+    if  series.serie_exists(title):
         serie_id = series.get_serie_id(title)
         season_id = series.get_season_id(year, serie_id)
-        series.add_watchlist(user_id, season_id)
-        return redirect("/search")
+        if series.add_watchlist(user_id, season_id):
+            return redirect("/search")
 
     return render_template("error.html", message="Move/serie already on the watchlist or watched")
 
@@ -158,8 +155,8 @@ def update_watchlist():
 
 @app.route("/watched", methods=["GET"])
 def watched():
-
     user_id = users.user_id()
+
     try:
         watched_movies = movies.watched(user_id)
         watched_series = series.watched(user_id)
