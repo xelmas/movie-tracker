@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <header class="p-3 mb-2 bg-light text-dark text-center">
       <h1>Movie and series tracker</h1>
       <div class="divider">
         <div class="container">
           <div class="row">
             <div class="column">
-              <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <ul class="nav col-12 col-lg-auto me-lg-auto p-1 justify-content-center">
                 <li><a href="/" class="nav-link px-2 text-warning">Home</a></li>
               {% if session.user_id %}
                 <li><a href="/logout" class="nav-link px-2 text-white" >Log out</a></li>
@@ -39,6 +39,12 @@
        </div>
       </div>
     </header>
+    <footer class="container p-4 text-center text-lg-start fixed-bottom">
+      <div class="d-lg-flex justify-content-between">
+        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 xelmas</span>
+      </div>
+    </footer>
+  </div>
 {% block content %}{% endblock %}
   </body>
 </html>
