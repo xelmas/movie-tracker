@@ -26,5 +26,5 @@ To do:
 
 ## Käyttö
 Sovellus on testattavissa fly.io:ssa. \
-Jos ensimmäisellä kerralla ilmestyy error, päivitä sivu. \
+Jos ensimmäisellä kerralla ilmestyy error, päivitä sivu. (Bugin korjaus to do-listalla) \
 https://tsoha-movie-tracker.fly.dev/
