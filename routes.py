@@ -70,10 +70,17 @@ def result():
     query = request.args["query"]
     movie = movies.search_movie(query)
 
+    
+    if len(movie) > 0:
+        return render_template("result.html", media=movie, keyword=query)
     if not movie:
         serie = series.search_series(query)
-        return render_template("result.html", media=serie, keyword=query)
-    return render_template("result.html", media=movie, keyword=query)
+        if len(serie) > 0:
+            return render_template("result.html", media=serie, keyword=query)
+    
+    return render_template("error.html", message="No results", keyword=query)
+    
+    
 
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
