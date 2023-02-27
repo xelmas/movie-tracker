@@ -1,19 +1,16 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-{% if session.user_id %}
-<body>
 <div class="container">
-  <div class="row row-cols-4 p-3 mb-2 text-white">
+  {% if session.user_id %}
+  <div class="row row-cols-3 p-3 mb-2 text-white">
     <div class="col-12 py-2 center-block text-center">
       <h2>Home</h2>
     </div>
-    <div class="col-4 py-2">
-      <h4>Welcome {{ session.user_name }}!</h4> 
-      <a href="/watchlist" class="nav-link px-2 text-warning">Watchlist</a>
-      <a href="/watched" class="nav-link px-2 text-warning">Watched</a>
+    <div class="col-4 py-2 mt-2">
+      <h4>Welcome {{ session.user_name }}!</h4>
     </div>
-    <div class="col-4 py-2">
+    <div class="col-4 py-2 mt-2">
       <p>Watched movies: {{ movies_count }}</p>
       <p>Rating average: {{ avg_movies }}</p> 
       <br>
@@ -21,45 +18,36 @@
       <p>Rating average: {{ avg_series }}</p>
     </div>
     <div class="col-4 py-2">
-      <form action="/result" class="navbar-form navbar-right" role="search" id="navBarSearch">
-        <div class="form-group text-white">
-          <label for="query">Title <em>(e.g. Avengers)</em></label>
-          <input type="text" name="query" placeholder="search...">
-        </div>
-        <input type="submit" class="btn btn-warning" value="Search">
-      </form>
+      <a href="/watchlist" class="nav-link px-2 text-warning">Watchlist</a>
+      <a href="/watched" class="nav-link px-2 text-warning">Watched</a>
     </div>
-    <div class="col-6 py-4 border">
+    <div class="col-6 py-4 border mt-4">
       <div class="d-flex justify-content-center">
         <ol>
           <h4>TOP 5 movies</h4>
           <br>
           {% for movie in top5_movies %}
-          <li> {{ movie.title }}, {{ movie.year}}, {{ movie.avg }}</li><br>
+          <li>{{ movie.title }}, {{ movie.year}}, {{ movie.avg }}</li><br>
           {% endfor %}
         </ol>
       </div>
     </div>
-    
-    <div class="col-6 py-4 border">
+    <div class="col-6 py-4 border mt-4">
       <div class="d-flex justify-content-center">
         <ol>
-          <h4>TOP 5 seasons </h4>
+          <h4>TOP 5 seasons</h4>
           <br>
           {% for season in top5_series %}
-          <li> {{ season.title}}, {{season.year}}, {{season.avg }}</li><br>
+          <li>{{ season.title}}, {{season.year}}, {{season.avg }}</li><br>
           {% endfor %}
         </ol>
       </div>
     </div>
-
-{% else %}
-  <div class="col-12 p-3 mb-2 text-light">
+  {% else %}
+  <div class="col-12 p-3 text-white">
       Welcome! By creating an account on the site, you can keep track of which movies and television series
-        you have watched and give them reviews. You can also create your own list of movies and series to watch next. 
-    </div>
+      you have watched and give them reviews. You can also create your own list of movies and series to watch next. 
+  </div>
 </div>
 {% endif %}
 {% endblock %}
-
-</body>
