@@ -6,7 +6,7 @@ body {
     background-color: black;
     box-shadow: inset 0 .5em 1.5em grey, inset 0 .125em .5em black;
 }
-  .divider {
+.divider {
     height: 3rem;
     background-color: black;
     border: solid black;
@@ -31,7 +31,17 @@ ol li::before {
 ol li {
   counter-increment: li;
 }
-#navBarSearch input[type=text]{width: 130px !important;}
+ul.golden {
+  list-style: none;
+}
+ul.golden li::before{
+  content: "\2605";
+  color: gold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  padding-right: 1em;
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -45,5 +55,9 @@ ol li {
   flex: 1;
 }
 .searchBox {
-margin-left:auto;
+ margin-left: auto;
+ margin-top: 4px;
+}
+.navbar .nav li {
+  white-space: nowrap;
 }

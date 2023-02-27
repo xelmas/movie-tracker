@@ -5,55 +5,71 @@
   <div class="col-12 py-2 center-block text-center text-white">
     <h2>Watched</h2>
   </div>
-  <div class="row row row-cols-2 p-3 mb-2 text-white">
-    <div class="col-6 border px-lg-5 py-2">
-      <h3>Movies</h3>
-        {% for item in watchlist1 %}
-        <li>
-        <p>{{ item.title }}, {{ item.year }} <br>
-        {% if ratings1|length > 0%}
-            {% for rate in ratings1 %}
+  <div class="row row row-cols-2 mb-2 text-white">
+    <div class="col-6 py-2 border mt-2">
+      <div class="d-flex justify-content-center">
+        <div class="col-6 py-2 center-block text-center text-white">
+          <h3>Movies</h3>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <ul class="golden">
+          {% for item in watchlist1 %}
+          <li>{{ item.title }}, {{ item.year }} <br>
+            {% if ratings1|length > 0%}
+              {% for rate in ratings1 %}
                 {% if item.id == rate.movie_id %}
-                   Current rating: {{ rate.rating }}</p> 
+                  Current rating: <span class="text-warning">{{ rate.rating }}</span>
                 {% endif %}
-            {% endfor %}
-        {% endif %}
-        <p><form action="/rate", method="post">
-              <label for="rating">Give or update rating (between 1 and 10)</label>
-              <input type="number" id="rating" name="rating" min="1" max="10">
-              <input type="hidden" name="id" value="{{ item.id }}">
-              <input type="hidden" name="media" value="{{ item.media }}">
-              <input type="submit" value="Save">
-              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              {% endfor %}
+            {% endif %}
+            <form action="/rate", method="post">
+              <div class="form-group text-white"> 
+                <label for="rating">Give or update rating (between 1 and 10)</label>
+                <input type="number" id="rating" name="rating" min="1" max="10">
+                <input type="hidden" name="id" value="{{ item.id }}">
+                <input type="hidden" name="media" value="{{ item.media }}">
+                <input type="submit" class="btn btn-warning" value="Save">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              </div>
             </form>
-        </p>
-        </li>
-        {% endfor %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <div class="col-6 border px-lg-5 py-2">
-      <h2>Series</h2>
-        {% for item in watchlist2 %}
-        <li>
-        <p>{{ item.title }}, {{ item.year }} <br>
-          {% if ratings2|length > 0 %}
-            {% for rate in ratings2 %}
+    <div class="col-6 py-2 border mt-2">
+      <div class="d-flex justify-content-center">
+        <div class="col-6 py-2 center-block text-center text-white">
+          <h3>Series</h3>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <ul class="golden">
+          {% for item in watchlist2 %}
+            <li>{{ item.title }}, {{ item.year }} <br>
+            {% if ratings2|length > 0 %}
+              {% for rate in ratings2 %}
                 {% if item.id == rate.season_id %}
-                    Current rating: {{ rate.rating }} </p>
+                    Current rating: <span class="text-warning">{{ rate.rating }}</span>
                 {% endif %}
-            {% endfor %}
-        {% endif %}
-       <p>
-      <form action="/rate", method="post">
-        <label for="rating">Give or update rating (between 1 and 10)</label>
-        <input type="number" id="rating" name="rating" min="1" max="10">
-        <input type="hidden" name="id" value="{{ item.id }}">
-        <input type="hidden" name="media" value="{{ item.media }}">
-        <input type="submit" value="Save">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-      </form>
-    </p>
-  </li>
-  {% endfor %}
+              {% endfor %}
+            {% endif %}
+              <form action="/rate", method="post">
+                <div class="form-group text-white">
+                  <label for="rating">Give or update rating (between 1 and 10)</label>
+                  <input type="number" id="rating" name="rating" min="1" max="10">
+                  <input type="hidden" name="id" value="{{ item.id }}">
+                  <input type="hidden" name="media" value="{{ item.media }}">
+                  <input type="submit" class="btn btn-warning" value="Save">
+                  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </div>
+              </form>
+            </li>
+         {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
-{% endblock %}
 </div>
+{% endblock %}
