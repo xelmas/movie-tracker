@@ -11,38 +11,45 @@
     <header class="p-3 mb-2 bg-light text-dark text-center">
       <h1>Movie and series tracker</h1>
       <div class="divider">
-        <div class="container">
-          <div class="row">
-            <div class="column">
-              <ul class="nav col-12 col-lg-auto me-lg-auto p-1 justify-content-center">
-                <li><a href="/" class="nav-link px-2 text-warning">Home</a></li>
-              {% if session.user_id %}
-                <li><a href="/logout" class="nav-link px-2 text-white" >Log out</a></li>
-                <li><a href="/search"class="nav-link px-2 text-white" >Search</a></li>
-                <li><a href="/add" class="nav-link px-2 text-white">Add</a></li>
-              {% else %}
-                <li><a href="/login" class="nav-link px-2 text-white">Log in</a></li>
-                <li><a href="/register" class="nav-link px-2 text-white">Create an account</a></li>
-              {% endif %}
+        <nav class="navbar justify-content-between flex-nowrap flex-row">
+          <div class="container"> 
+              <ul class="nav navbar-nav flex-row float-right">
+                <li class="nav-item active"> 
+                  <a href="/" class="nav-link pr-3 text-warning">Home</a>
+                </li>
+                {% if session.user_id %}
+                <li class="nav-item active">
+                  <a href="/logout" class="nav-link pr-3 text-white" >Log out</a>
+                </li>
+                <li class="nav-item active">
+                  <a href="/search"class="nav-link pr-3 text-white" >Search</a>
+                </li>
+                <li class="nav-item active">
+                  <a href="/add" class="nav-link text-white">Add</a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                  <a href="/login" class="nav-link pr-3 text-white">Log in</a>
+                </li>
+                <li class="nav-item active">
+                  <a href="/register" class="nav-link text-white">Create an account</a>
+                </li>
+                {% endif %}
               </ul>
-            </div>
-          
-            <div class="column"> 
               {% if session.user_id %}
-              <div class="searchBox">
-                <form action="/result" method="GET" role="search">
-                  <input type="text" class="form-control" name="query" placeholder="Search...">
-                </form>
-              </div>
+              <form action="/result" method="GET" role="search" class="form-inline hidden-mobile">
+                <input class="form-control" type="text" name="query" placeholder="Search...">
+              </form>
               {% endif %}
+            </div>
           </div>
-       </div>
+        </nav>
       </div>
     </header>
     <footer class="py-3 px-4 fixed-bottom">
         <span class="mb-3 mb-md-0 text-muted">&copy; 2023 xelmas</span>
     </footer>
 {% block content %}{% endblock %}
-  </body>
+</body>
 </html>
 

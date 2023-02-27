@@ -7,7 +7,7 @@ body {
     box-shadow: inset 0 .5em 1.5em grey, inset 0 .125em .5em black;
 }
 .divider {
-    height: 3rem;
+    height: 56px;
     background-color: black;
     border: solid black;
     border-width: 1px 0;
@@ -54,10 +54,13 @@ ul.golden li::before{
   flex-basis: 100%;
   flex: 1;
 }
-.searchBox {
- margin-left: auto;
- margin-top: 4px;
+@media (max-width: 600px) {
+  .hidden-mobile {
+    display: none;
+  }
 }
-.navbar .nav li {
-  white-space: nowrap;
+@media (min-width: 600px) {
+  .testitext{
+    display: none;
+  }
 }
