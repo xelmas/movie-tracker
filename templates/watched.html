@@ -6,7 +6,7 @@
     <h2>Watched</h2>
   </div>
   <div class="row row row-cols-2 mb-2 text-white">
-    <div class="col-6 py-2 border mt-2">
+    <div class="col-md-6 col-lg-6 col-sm-12 py-2 border mt-2 order-sm-1">
       <div class="d-flex justify-content-center">
         <div class="col-6 py-2 center-block text-center text-white">
           <h3>Movies</h3>
@@ -24,9 +24,9 @@
               {% endfor %}
             {% endif %}
             <form action="/rate", method="post">
-              <div class="form-group text-white"> 
+              <div class="form-group text-white">
                 <label for="rating">Give or update rating (between 1 and 10)</label>
-                <input type="number" id="rating" name="rating" min="1" max="10">
+                <input class="input group w-25 ml-1" type="number" id="rating" name="rating" min="1" max="10">
                 <input type="hidden" name="id" value="{{ item.id }}">
                 <input type="hidden" name="media" value="{{ item.media }}">
                 <input type="submit" class="btn btn-sm btn-warning" value="Save">
@@ -38,7 +38,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-6 py-2 border mt-2">
+    <div class="col-md-6 col-lg-6 col-sm-12 py-2 border mt-2 order-sm-2">
       <div class="d-flex justify-content-center">
         <div class="col-6 py-2 center-block text-center text-white">
           <h3>Series</h3>
@@ -58,7 +58,7 @@
               <form action="/rate", method="post">
                 <div class="form-group text-white">
                   <label for="rating">Give or update rating (between 1 and 10)</label>
-                  <input type="number" id="rating" name="rating" min="1" max="10">
+                  <input class="input group w-25 ml-1" type="number" id="rating" name="rating" min="1" max="10">
                   <input type="hidden" name="id" value="{{ item.id }}">
                   <input type="hidden" name="media" value="{{ item.media }}">
                   <input type="submit" class="btn btn-sm btn-warning" value="Save">

@@ -59,8 +59,11 @@ ul.golden li::before{
     display: none;
   }
 }
-@media (min-width: 600px) {
-  .testitext{
-    display: none;
-  }
+.btn-white:active {
+  background-color:	#FFC107;
+  color: black;
+}
+.btn-white:hover{
+  background:  	#FFC107;
+  color: black;
 }

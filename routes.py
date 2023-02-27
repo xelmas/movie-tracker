@@ -70,7 +70,6 @@ def result():
     query = request.args["query"]
     movie = movies.search_movie(query)
 
-    
     if len(movie) > 0:
         return render_template("result.html", media=movie, keyword=query)
     if not movie:
@@ -121,13 +120,13 @@ def add_watchlist():
     if  movies.movie_exists(title):
         movie_id = movies.get_movie_id(title)
         if movies.add_watchlist(user_id, movie_id):
-            return redirect("/search")
+            return redirect("/watchlist")
 
     if  series.serie_exists(title):
         serie_id = series.get_serie_id(title)
         season_id = series.get_season_id(year, serie_id)
         if series.add_watchlist(user_id, season_id):
-            return redirect("/search")
+            return redirect("/watchlist")
 
     return render_template("error.html", message="Move/serie already on the watchlist or watched")
 
@@ -135,30 +134,25 @@ def add_watchlist():
 def update_watchlist():
     users.check_csrf()
     user_id = users.user_id()
-    delete = request.form.getlist("delete")
-    seen = request.form.getlist("watched")
-
-    if len(delete) > 0:
-        for item in delete:
-            item = item.split("-")
-            media_id = item[0]
-            media = int(item[1])
-            if media == 0:
-                movies.delete_watchlist(user_id, media_id)
-            else:
-                series.delete_watchlist(user_id, media_id)
-
-    if len(seen) > 0:
-        for item in seen:
-            item = item.split("-")
-            media_id = item[0]
-            media = int(item[1])
-            if media == 0:
-                movies.mark_watched(media_id, user_id)
-            else:
-                series.mark_watched(media_id, user_id)
-
-    return redirect("/watchlist")
+    media = int(request.form["media"])
+    process = request.form["process"]
+    if media == 0:
+        movie_id = request.form["id"]
+        if process == "Watched":
+            movies.mark_watched(movie_id, user_id)
+        else:
+            movies.delete_watchlist(user_id, movie_id)
+        return redirect("/watchlist")
+    
+    elif media == 1:
+        serie_id = request.form["id"]
+        if process == "Watched":
+            series.mark_watched(serie_id, user_id)
+        else:
+            series.delete_watchlist(user_id, serie_id)
+        return redirect("/watchlist")
+        
+    return render_template("error.html", message="Could not update the watchlist")
 
 @app.route("/watched", methods=["GET"])
 def watched():

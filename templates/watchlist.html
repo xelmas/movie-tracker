@@ -12,42 +12,37 @@
           <h3>Movies</h3>
           {% for item in watchlist1 %}
           <li>{{ item.title }}, {{ item.year }}
-          <form action="/update_watchlist" method="post">
-            <div class="form-group text-white"> 
-              <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-              <br>
-              <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-              <br>
+            <form class="form-inline py-2 mb-2" action="/update_watchlist" method="post">
+              <div class="form-group"> 
+                <input type="hidden" name="id" value="{{ item.id }}">
+                <input type="hidden" name="media" value="{{ item.media }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              </div>
+                <input name="process" type="submit" class="btn-sm btn-white" value="Watched">
+                <input name="process" type="submit" class="btn-sm btn-white ml-1" value="Remove">
+            </form>
           </li>
-        {% endfor %}
-        {% if watchlist1|length > 0%}
-          <input type="submit" class="btn btn-warning" value="Update selected">
-          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        {% endif %}
-            </div>
-          </form>
+          {% endfor %}
         </ul>
       </div>
+    </div>
     <div class="col-6 py-2 border mt-2">
       <div class="d-flex justify-content-center">
         <ul class="golden">
           <h3>Series</h3>
           {% for item in watchlist2 %}
-           <li>{{ item.title }}, {{ item.year }}
-           <form action="/update_watchlist" method="post">
-             <div class="form-group text-white"> 
-               <input type="checkbox" name="watched" value="{{ item.id }}-{{ item.media }}"> Mark as watched
-               <br>
-               <input type="checkbox" name="delete" value="{{ item.id }}-{{ item.media }}"> Mark to remove
-               <br> 
-            </li>
-          {% endfor %}
-        {% if watchlist2|length > 0%}
-          <input type="submit" class="btn btn-warning" value="Update selected">
-          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        {% endif %}
-             </div>
+          <li>{{ item.title }}, {{ item.year }}
+            <form class="form-inline py-2 mb-2" action="/update_watchlist" method="post">
+              <div class="form-group"> 
+                <input type="hidden" name="id" value="{{ item.id }}">
+                <input type="hidden" name="media" value="{{ item.media }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              </div>
+              <input name="process" type="submit" class="btn-sm btn-white" value="Watched">
+              <input name="process" type="submit" class="btn-sm btn-white ml-1" value="Remove">
             </form>
+          </li>
+          {% endfor %}
        </ul>
     </div>
   </div>
