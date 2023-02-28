@@ -2,12 +2,13 @@
 {% block title %} Watchlist {% endblock %}
 {% block content %}
 <div class="container">
-  <div class="col-12 py-2 center-block text-center text-white">
-    <h2>Watchlist</h2>
+  <div class="row row-cols-2 p-3 mb-2 text-white">
+    <div class="col-12 py-2 center-block text-center text-white">
+      <h2>Watchlist</h2>
+    </div>
   </div>
-  <div class="row row row-cols-2 mb-2 text-white">
-    <div class="col-6 py-2 border mt-2">
-      <div class="d-flex justify-content-center">
+    <div class="row mr-auto ml-auto mb-2"> 
+      <div class="column py-4 mt-4 text-white justify-content-center border p-2">
         <ul class="golden">
           <h3>Movies</h3>
           {% for item in watchlist1 %}
@@ -18,16 +19,16 @@
                 <input type="hidden" name="media" value="{{ item.media }}">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
               </div>
-                <input name="process" type="submit" class="btn-sm btn-white" value="Watched">
-                <input name="process" type="submit" class="btn-sm btn-white ml-1" value="Remove">
+              <div class="form-group">
+                <input name="process" type="submit" class="btn-sm btn-white mb-1" value="Watched">
+                <input name="process" type="submit" class="btn-sm btn-white mb-1 ml-1" value="Remove">
+              </div>
             </form>
           </li>
           {% endfor %}
         </ul>
       </div>
-    </div>
-    <div class="col-6 py-2 border mt-2">
-      <div class="d-flex justify-content-center">
+      <div class="column py-4 mt-4 text-white justify-content-center border p-2">
         <ul class="golden">
           <h3>Series</h3>
           {% for item in watchlist2 %}
@@ -38,13 +39,17 @@
                 <input type="hidden" name="media" value="{{ item.media }}">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
               </div>
-              <input name="process" type="submit" class="btn-sm btn-white" value="Watched">
-              <input name="process" type="submit" class="btn-sm btn-white ml-1" value="Remove">
+              <div class="form-group">
+                <input name="process" type="submit" class="btn-sm btn-white mb-1" value="Watched">
+                <input name="process" type="submit" class="btn-sm btn-white mb-1 ml-1" value="Remove">
+              </div>
             </form>
           </li>
           {% endfor %}
        </ul>
+      </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}

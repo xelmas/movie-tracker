@@ -47,16 +47,23 @@ ul.golden li::before{
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  justify-content: center;
 }
 .column {
   display: flex;
   flex: column;
   flex-basis: 100%;
   flex: 1;
+  justify-content: space-around;
 }
 @media (max-width: 600px) {
   .hidden-mobile {
     display: none;
+  }
+}
+@media (max-width: 200px) {
+  .column {
+    flex-flow: column wrap;
   }
 }
 .btn-white:active {
