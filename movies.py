@@ -1,7 +1,7 @@
 from db import db
 
 def search_movie(query):
-    sql = "SELECT title, year FROM movies WHERE title ILIKE :query"
+    sql = "SELECT title, year, media FROM movies WHERE title ILIKE :query"
     result = db.session.execute(sql, {"query": "%"+query+"%"})
     results = result.fetchall()
     return results
@@ -47,10 +47,18 @@ def movie_exists(title):
     return exists
 
 def mark_watched(movie_id, user_id):
-    sql = """UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id
-            AND movies_watchlist.user_id=:user_id"""
-    db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
-    db.session.commit()
+
+    sql = """SELECT EXISTS (SELECT 1 FROM movies_watchlist
+             WHERE movie_id = :movie_id AND user_id=:user_id AND status = 0)"""
+    exists = db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
+    exists = exists.fetchone()[0]
+    if exists:
+        sql = """UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id
+                AND movies_watchlist.user_id=:user_id"""
+        db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
+        db.session.commit()
+        return True
+    return False
 
 def watched(user_id):
     sql = """SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies
@@ -73,3 +81,4 @@ def count_watched(user_id):
     result = db.session.execute(sql, {"user_id":user_id})
     count = result.fetchone()[0]
     return count
+

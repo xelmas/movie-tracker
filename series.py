@@ -1,7 +1,7 @@
 from db import db
 
 def search_series(query):
-    sql = """SELECT title, year FROM seasons JOIN series
+    sql = """SELECT title, year, media FROM seasons JOIN series
              ON seasons.serie_id = series.id WHERE title ILIKE :query"""
     result = db.session.execute(sql, {"query": "%"+query+"%"})
     results = result.fetchall()
@@ -71,11 +71,19 @@ def delete_watchlist(user_id, season_id):
 
 def mark_watched(season_id, user_id):
 
-    sql = """UPDATE series_watchlist SET status=1
-            WHERE series_watchlist.season_id=:season_id
-            AND series_watchlist.user_id=:user_id"""
-    db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
-    db.session.commit()
+    sql = """SELECT EXISTS (SELECT 1 FROM series_watchlist
+             WHERE season_id =:season_id AND user_id=:user_id AND status = 0)"""
+    exists = db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
+    exists = exists.fetchone()[0]
+
+    if exists:
+        sql = """UPDATE series_watchlist SET status=1
+                WHERE series_watchlist.season_id=:season_id
+                AND series_watchlist.user_id=:user_id"""
+        db.session.execute(sql, {"season_id":season_id, "user_id":user_id})
+        db.session.commit()
+        return True
+    return False
 
 def watched(user_id):
 

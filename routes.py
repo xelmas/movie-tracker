@@ -116,18 +116,31 @@ def add_watchlist():
     title = request.form["title"]
     year = request.form["year"]
     user_id = users.user_id()
+    process = request.form["process"]
+    media = int(request.form["media"])
+    
+    if media == 0:
+        if movies.movie_exists(title):
+            movie_id = movies.get_movie_id(title)
 
-    if  movies.movie_exists(title):
-        movie_id = movies.get_movie_id(title)
-        if movies.add_watchlist(user_id, movie_id):
-            return redirect("/watchlist")
+            if process == "Watchlist":
+                if movies.add_watchlist(user_id, movie_id):
+                    return redirect("/watchlist")
+            else:
+                if movies.mark_watched(movie_id, user_id):
+                    return redirect("/watched")
+                
+    if media == 1:
+        if series.serie_exists(title):
+            serie_id = series.get_serie_id(title)
+            season_id = series.get_season_id(year, serie_id)
 
-    if  series.serie_exists(title):
-        serie_id = series.get_serie_id(title)
-        season_id = series.get_season_id(year, serie_id)
-        if series.add_watchlist(user_id, season_id):
-            return redirect("/watchlist")
-
+            if process == "Watchlist":
+                if series.add_watchlist(user_id, season_id):
+                    return redirect("/watchlist")
+            else:
+                if series.mark_watched(season_id, user_id):
+                    return redirect("/watched")
     return render_template("error.html", message="Move/serie already on the watchlist or watched")
 
 @app.route("/update_watchlist", methods=["GET","POST"])
