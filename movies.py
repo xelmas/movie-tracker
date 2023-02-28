@@ -58,6 +58,13 @@ def mark_watched(movie_id, user_id):
         db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
         db.session.commit()
         return True
+    elif not exists:
+        if add_watchlist(user_id, movie_id):
+            sql = """UPDATE movies_watchlist SET status = 1 WHERE movies_watchlist.movie_id=:movie_id
+                    AND movies_watchlist.user_id=:user_id"""
+            db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
+            db.session.commit()
+            return True
     return False
 
 def watched(user_id):
