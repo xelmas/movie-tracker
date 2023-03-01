@@ -173,7 +173,7 @@ def add_watchlist():
             else:
                 if series.mark_watched(season_id, user_id):
                     return redirect("/watched")
-    return render_template("error.html", message="Move/serie already on the watchlist or watched")
+    return render_template("error.html", message="Move/serie already on the watchlist or watched list")
 
 @app.route("/update_watchlist", methods=["GET","POST"])
 def update_watchlist():
@@ -230,4 +230,32 @@ def rate():
 
     return render_template("error.html", message="Something went wrong with rating")
 
+@app.route("/media/<media>/<title>/<year>", methods=["GET"])
+def media(title, year, media):
+    if users.is_user():
+        if media == "movie":
+            movie_id = movies.get_movie_id(title)
+            return render_template("/media.html", title=title
+                                                , year=year
+                                                , movie_id=movie_id
+                                                , media=0)
+        if media == "serie":
+            serie_id = series.get_serie_id(title)
+            season_id = series.get_season_id(year, serie_id)
+            season_num = series.get_season_number(title, serie_id, year)
+            return render_template("/media.html", title=title
+                                                , year=year
+                                                , season_id=season_id
+                                                , season_num=season_num
+                                                , media=1)
+
+    return render_template("error.html", message="Request not allowed")
+
+@app.route("/serie_data/<title>", methods=["GET"])
+def data(title):
+    if users.is_user():
+        serie_id = series.get_serie_id(title)
+        seasons_data = series.get_all_seasons(serie_id)
+        return render_template("/serie_data.html", seasons_data=seasons_data)
+    return render_template("error.html", message="Request not allowed")
 

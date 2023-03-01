@@ -48,6 +48,25 @@ def get_season_id(year, serie_id):
     season_id = result.fetchone()[0]
     return season_id
 
+def get_all_seasons(serie_id):
+    sql = """ SELECT title, year, RANK() OVER (PARTITION BY series.id ORDER BY year) as season
+              FROM seasons JOIN series ON seasons.serie_id = series.id
+              WHERE series.id=:serie_id """
+    result = db.session.execute(sql, {"serie_id":serie_id})
+    seasons_data = result.fetchall()
+    return seasons_data
+
+def get_season_number(title, serie_id, year):
+    sql = """ SELECT num.season
+              FROM
+                (SELECT title, year, RANK() OVER (PARTITION BY series.id ORDER BY year) as season
+                FROM seasons JOIN series ON seasons.serie_id = series.id
+                WHERE series.id =:serie_id AND title=:title) AS num
+              WHERE year=:year"""
+    result = db.session.execute(sql, {"serie_id":serie_id, "title":title, "year":year})
+    number = result.fetchone()[0]
+    return number
+
 def add_watchlist(user_id, season_id):
 
     sql = """SELECT EXISTS (SELECT 1 FROM series_watchlist

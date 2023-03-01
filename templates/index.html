@@ -18,26 +18,31 @@
       <p>Rating average: {{ avg_series }}</p>
     </div>
     <div class="col-4 py-2">
-      <a href="/watchlist" class="nav-link px-2 text-warning">Watchlist</a>
-      <a href="/watched" class="nav-link px-2 text-warning">Watched</a>
+      <a href="/watchlist" class="list nav-link px-2 text-warning">Watchlist</a>
+      <a href="/watched" class="list nav-link px-2 text-warning">Watched</a>
     </div>
   </div>
     <div class="row mr-auto ml-auto mb-2"> 
       <div class="column py-4 mt-4 text-white justify-content-center border p-2">
         <ol>
-          <h4>TOP 5 movies</h4>
+          <h4>Users top 5 movies</h4>
           <br>
           {% for movie in top5_movies %}
-          <li>{{ movie.title }}, {{ movie.year}}, {{ movie.avg }}</li><br>
+          <li>
+            <a href="/media/movie/{{movie.title}}/{{movie.year}}" class="text-white">{{ movie.title }}</a>,
+            {{ movie.year}}, {{ movie.avg }}</li>
+          <br>
           {% endfor %}
         </ol>
       </div>
       <div class="column py-4 mt-4 text-white justify-content-center border p-2">
         <ol>
-          <h4>TOP 5 seasons</h4>
+          <h4>Users top 5 seasons</h4>
           <br>
           {% for season in top5_series %}
-          <li>{{ season.title}}, {{season.year}}, {{season.avg }}</li><br>
+          <li><a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white">{{ season.title}}</a>,
+            {{season.year}}, {{season.avg }}</li>
+          <br>
           {% endfor %}
         </ol>
       </div>
