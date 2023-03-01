@@ -150,4 +150,25 @@ def get_top5(media):
 
     return result_top5
 
+def get_avg_rating(media, media_id):
+    if media == 0:
+        sql= """ SELECT COALESCE ((SELECT a.avg 
+                  FROM
+                  (SELECT AVG(rating):: numeric(10,2), movie_id
+                  FROM ratings JOIN movie_ratings AS m ON m.rating_id=ratings.id
+                  GROUP BY movie_id) AS a
+                  WHERE a.movie_id =:media_id), 0)"""
+         
+        result = db.session.execute(sql, {"media_id":media_id})
+        avg_rating = result.fetchone()[0]
+    else:
+        sql = """SELECT COALESCE (( SELECT a.avg
+                 FROM
+                  (SELECT AVG(rating):: numeric(10,2), season_id
+                  FROM ratings JOIN season_ratings AS s ON s.rating_id=ratings.id
+                  GROUP BY season_id) AS a 
+                 WHERE a.season_id=:media_id), 0)"""
+        result = db.session.execute(sql, {"media_id":media_id})
+        avg_rating = result.fetchone()[0]
 
+    return avg_rating
