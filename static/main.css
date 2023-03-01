@@ -66,11 +66,11 @@ ul.golden li::before{
     flex-flow: column wrap;
   }
 }
-.btn-white:active {
-  background-color:	#FFC107;
-  color: black;
+.btn-light:active {
+    background-color:	#FFC107;
+    color: black;
 }
-.btn-white:hover{
-  background:  	#FFC107;
-  color: black;
+.btn-light:hover{
+    background:  	#FFC107;
+    color: black;
 }
