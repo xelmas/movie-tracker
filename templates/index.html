@@ -40,8 +40,8 @@
           <h4>Users top 5 seasons</h4>
           <br>
           {% for season in top5_series %}
-          <li><a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white">{{ season.title}}</a>,
-            {{season.year}}, {{season.avg }}</li>
+          <li><a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white">{{ season.title}}, season {{season.num}}</a>
+             ({{season.year}}), {{season.avg }}</li>
           <br>
           {% endfor %}
         </ol>

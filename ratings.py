@@ -128,7 +128,7 @@ def get_top5(media):
         result_top5 = result.fetchall()
     
     else:
-        sql = """SELECT season.title, season.year, top.avg
+        sql = """SELECT season.title, season.year, top.avg, season.num
                  FROM 
                     (SELECT season_id, AVG(rating):: numeric(10,2)
                     FROM ratings
@@ -139,7 +139,7 @@ def get_top5(media):
                     LIMIT 5)
                     AS top
                  JOIN
-                    (SELECT s.id, title, year
+                    (SELECT s.id, title, year, RANK() OVER (PARTITION BY series.id ORDER BY year) as num
                     FROM seasons AS s
                     JOIN series
                     ON s.serie_id=series.id)
