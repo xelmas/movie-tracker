@@ -82,10 +82,24 @@ def watchlist(user_id):
     return movie_watchlist
 
 def count_watched(user_id):
-    count = 0
-    sql = """SELECT COUNT(movies.id) FROM movies_watchlist JOIN movies
-            ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id"""
+    
+    sql = """SELECT COALESCE ((SELECT COUNT(movies.id) FROM movies_watchlist JOIN movies
+            ON movies_watchlist.movie_id = movies.id WHERE status = 1 AND user_id=:user_id),0)"""
     result = db.session.execute(sql, {"user_id":user_id})
     count = result.fetchone()[0]
     return count
+
+def count_watchers(title):
+    
+    sql = """SELECT COALESCE ((SELECT c.count
+             FROM
+              (SELECT title, COUNT(movies.id) count
+              FROM movies_watchlist JOIN movies ON movies_watchlist.movie_id = movies.id
+              WHERE status = 1
+              GROUP BY movies.id) as c
+             WHERE title=:title),0)"""
+    result = db.session.execute(sql, {"title":title})
+    count = result.fetchone()[0]
+    return count
+
 

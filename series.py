@@ -134,12 +134,23 @@ def watchlist(user_id):
     return series_watchlist
 
 def count_watched(user_id):
-    count = 0
-    sql = """SELECT COUNT(T.id)
+    
+    sql = """SELECT COALESCE ((SELECT COUNT(T.id)
             FROM (SELECT S.id, title, year, media FROM seasons AS S
             JOIN series ON S.serie_id=series.id) AS T JOIN series_watchlist
             ON T.id=series_watchlist.season_id
-            WHERE status = 1 AND user_id=:user_id"""
+            WHERE status = 1 AND user_id=:user_id),0)"""
     result = db.session.execute(sql, {"user_id":user_id})
+    count = result.fetchone()[0]
+    return count
+
+def count_watchers(season_id):
+
+    sql= """SELECT COALESCE ((SELECT c.count FROM (SELECT t.id, COUNT(t.id)
+            FROM (SELECT s.id FROM seasons AS s
+            JOIN series ON s.serie_id=series.id) AS t JOIN series_watchlist
+            ON t.id=series_watchlist.season_id
+            WHERE status = 1 GROUP BY t.id) as c WHERE c.id=:season_id),0)"""
+    result = db.session.execute(sql, {"season_id":season_id})
     count = result.fetchone()[0]
     return count

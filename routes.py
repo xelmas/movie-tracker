@@ -95,14 +95,15 @@ def create_movie():
     user_id = users.user_id()
     
     if movies.add_movie(title, year):
-        option = request.form["options"]
-        movie_id = movies.get_movie_id(title)
-        if option == "watched":
-            if movies.mark_watched(movie_id, user_id):
-                return redirect("/watched")
-        if option == "watchlist":
-            if movies.add_watchlist(user_id, movie_id):
-                return redirect("/watchlist")
+        if "options" in request.form:
+            option = request.form["options"]
+            movie_id = movies.get_movie_id(title)
+            if option == "watched":
+                if movies.mark_watched(movie_id, user_id):
+                    return redirect("/watched")
+            if option == "watchlist":
+                if movies.add_watchlist(user_id, movie_id):
+                    return redirect("/watchlist")
         else:
             return redirect("/")
     
@@ -128,15 +129,16 @@ def create_serie():
             added = True
 
     if added:
-        option = request.form["options"]
-        serie_id = series.get_serie_id(title)
-        season_id = series.get_season_id(year, serie_id)
-        if option == "watched":
-            if series.mark_watched(season_id, user_id):
-                return redirect("/watched")
-        if option == "watchlist":
-            if series.add_watchlist(user_id, season_id):
-                return redirect("/watchlist")
+        if "options" in request.form:
+            option = request.form["options"]
+            serie_id = series.get_serie_id(title)
+            season_id = series.get_season_id(year, serie_id)
+            if option == "watched":
+                if series.mark_watched(season_id, user_id):
+                    return redirect("/watched")
+            if option == "watchlist":
+                if series.add_watchlist(user_id, season_id):
+                    return redirect("/watchlist")
         else:
             return redirect("/")
     
@@ -235,18 +237,26 @@ def media(title, year, media):
     if users.is_user():
         if media == "movie":
             movie_id = movies.get_movie_id(title)
+            avg_rating = ratings.get_avg_rating(0, movie_id)
+            watchers = movies.count_watchers(title)
             return render_template("/media.html", title=title
                                                 , year=year
                                                 , movie_id=movie_id
+                                                , avg_rating=avg_rating
+                                                , watchers=watchers
                                                 , media=0)
         if media == "serie":
             serie_id = series.get_serie_id(title)
             season_id = series.get_season_id(year, serie_id)
             season_num = series.get_season_number(title, serie_id, year)
+            avg_rating = ratings.get_avg_rating(1, season_id)
+            watchers = series.count_watchers(season_id)
             return render_template("/media.html", title=title
                                                 , year=year
                                                 , season_id=season_id
                                                 , season_num=season_num
+                                                , avg_rating=avg_rating
+                                                , watchers=watchers
                                                 , media=1)
 
     return render_template("error.html", message="Request not allowed")

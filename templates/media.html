@@ -16,9 +16,9 @@
         {% if media == 1 %}
         <p>Season: {{ season_num }}</p>
         {% endif %}
-        <p>Release year: {{year}} </p>
-        <p>Average rating:</p>
-        <p>Users watched:</p>
+        <p>Release year: {{ year }} </p>
+        <p>Average rating: {{ avg_rating }}</p>
+        <p>Users watched: {{ watchers }}</p>
       </div>
     <div class="row"> 
       <form action="/add_watchlist" method="post">
