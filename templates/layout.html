@@ -32,7 +32,7 @@
                   <a href="/login" class="nav-link pr-3 text-white">Log in</a>
                 </li>
                 <li class="nav-item active">
-                  <a href="/register" class="nav-link text-white">Create an account</a>
+                  <a href="/register" class="nav-link text-white">Create account</a>
                 </li>
                 {% endif %}
               </ul>
@@ -47,9 +47,12 @@
       </div>
     </header>
     <footer class="py-3 px-4 fixed-bottom">
-        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 xelmas</span>
+      <span class="mb-3 mb-md-0 text-muted">&copy; 2023
+        <a href="https://github.com/xelmas/movie-tracker" target="_blank" rel="noopener noreferrer" class="text-reset">xelmas
+        </a>
+      </span>
     </footer>
 {% block content %}{% endblock %}
-</body>
+  </body>
 </html>
 
