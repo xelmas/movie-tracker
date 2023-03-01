@@ -38,3 +38,9 @@ def check_csrf():
         
 def user_id():
     return session.get("user_id",0)
+
+def is_user():
+    id = user_id()
+    if id == 0:
+        return False
+    return True
