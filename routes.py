@@ -51,33 +51,41 @@ def logout():
 
 @app.route("/search", methods=["GET"])
 def search():
-    return render_template("search.html")
+    if users.is_user():
+        return render_template("search.html")
+    return render_template("error.html", message="Request not allowed")
 
 @app.route("/add", methods = ["GET"])
 def add():
-    return render_template("add.html")
+    if users.is_user():
+        return render_template("add.html")
+    return render_template("error.html", message="Request not allowed")
 
 @app.route("/watchlist", methods=["GET"])
 def watchlist():
-    user_id = users.user_id()
-    movie_watchlist = movies.watchlist(user_id)
-    series_watchlist = series.watchlist(user_id)
-    return render_template("watchlist.html", watchlist1=movie_watchlist,
-                                            watchlist2=series_watchlist)
+    if users.is_user():
+        user_id = users.user_id()
+        movie_watchlist = movies.watchlist(user_id)
+        series_watchlist = series.watchlist(user_id)
+        return render_template("watchlist.html", watchlist1=movie_watchlist
+                                            , watchlist2=series_watchlist)
+    return render_template("error.html", message="Request not allowed")
 
 @app.route("/result", methods=["GET"])
 def result():
-    query = request.args["query"]
-    movie = movies.search_movie(query)
+    if users.is_user():
+        query = request.args["query"]
+        movie = movies.search_movie(query)
 
-    if len(movie) > 0:
-        return render_template("result.html", media=movie, keyword=query)
-    if not movie:
-        serie = series.search_series(query)
-        if len(serie) > 0:
-            return render_template("result.html", media=serie, keyword=query)
+        if len(movie) > 0:
+            return render_template("result.html", media=movie, keyword=query)
+        if not movie:
+            serie = series.search_series(query)
+            if len(serie) > 0:
+                return render_template("result.html", media=serie, keyword=query)
     
-    return render_template("error.html", message="No results", keyword=query)
+        return render_template("error.html", message="No results", keyword=query)
+    return render_template("error.html", message="Request not allowed")
     
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
@@ -193,20 +201,21 @@ def update_watchlist():
 
 @app.route("/watched", methods=["GET"])
 def watched():
-    user_id = users.user_id()
+    if users.user_id():
+        user_id = users.user_id()
+        try:
+            watched_movies = movies.watched(user_id)
+            watched_series = series.watched(user_id)
+            movie_ratings = ratings.get_movie_ratings(user_id)
+            season_ratings = ratings.get_season_ratings(user_id)
+        except:
+            return render_template("error.html", message="Watched lists unavailable")
 
-    try:
-        watched_movies = movies.watched(user_id)
-        watched_series = series.watched(user_id)
-        movie_ratings = ratings.get_movie_ratings(user_id)
-        season_ratings = ratings.get_season_ratings(user_id)
-    except:
-        return render_template("error.html", message="Watched lists unavailable")
-
-    return render_template("watched.html", watchlist1=watched_movies,
-                                            watchlist2=watched_series,
-                                            ratings1=movie_ratings,
-                                            ratings2=season_ratings)
+        return render_template("watched.html", watchlist1=watched_movies
+                                            , watchlist2=watched_series
+                                            , ratings1=movie_ratings
+                                            , ratings2=season_ratings)
+    return render_template("error.html", message="Request not allowed")
 
 @app.route("/rate", methods=["POST"])
 def rate():
@@ -220,3 +229,5 @@ def rate():
         return redirect("/watched")
 
     return render_template("error.html", message="Something went wrong with rating")
+
+
