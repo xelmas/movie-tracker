@@ -79,16 +79,25 @@ def result():
     
     return render_template("error.html", message="No results", keyword=query)
     
-    
-
 @app.route("/create_movie", methods=["POST"])
 def create_movie():
     users.check_csrf()
     title = request.form["title"]
     year = request.form["year"]
-
+    user_id = users.user_id()
+    
     if movies.add_movie(title, year):
-        return redirect("/")
+        option = request.form["options"]
+        movie_id = movies.get_movie_id(title)
+        if option == "watched":
+            if movies.mark_watched(movie_id, user_id):
+                return redirect("/watched")
+        if option == "watchlist":
+            if movies.add_watchlist(user_id, movie_id):
+                return redirect("/watchlist")
+        else:
+            return redirect("/")
+    
     return render_template("error.html", message="Movie already in the database")
 
 @app.route("/create_serie", methods=["POST"])
@@ -97,17 +106,32 @@ def create_serie():
     title = request.form["title"]
     year = request.form["year"]
     serie_exists = series.serie_exists(title)
+    user_id = users.user_id()
+    added = False
 
     if not serie_exists:
         series.add_serie(title, year)
-        return redirect("/")
+        added = True
+    if serie_exists:
+        serie_id = series.get_serie_id(title)
+        season_exists = series.season_exists(year, serie_id)
+        if not season_exists:
+            series.add_season(year, serie_id)
+            added = True
 
-    serie_id = series.get_serie_id(title)
-    season_exists = series.season_exists(year, serie_id)
-
-    if not season_exists:
-        series.add_season(year, serie_id)
-        return redirect("/")
+    if added:
+        option = request.form["options"]
+        serie_id = series.get_serie_id(title)
+        season_id = series.get_season_id(year, serie_id)
+        if option == "watched":
+            if series.mark_watched(season_id, user_id):
+                return redirect("/watched")
+        if option == "watchlist":
+            if series.add_watchlist(user_id, season_id):
+                return redirect("/watchlist")
+        else:
+            return redirect("/")
+    
     return render_template("error.html", message="Serie/season already in the database")
 
 @app.route("/add_watchlist", methods=["POST"])
