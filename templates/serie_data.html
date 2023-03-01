@@ -1,5 +1,23 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-{{ seasons_data  }}
+<div class="container">
+    <div class="column p-3 mb-2">
+      <div class="text-white">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <div class="row mr-auto ml-auto mb-2 border justify-content-center text-white">
+      <ul class="golden">
+        <div class="text-white mt-3">
+          {% for season in seasons_data %}
+            <li>
+              <a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white">Season {{ season.season }} ({{ season.year }})</a>
+            </li>
+            <br>
+          {% endfor %}
+        </div>
+      </ul>
+    </div>
+</div>
 {% endblock %}

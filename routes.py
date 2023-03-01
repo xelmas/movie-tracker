@@ -256,6 +256,7 @@ def data(title):
     if users.is_user():
         serie_id = series.get_serie_id(title)
         seasons_data = series.get_all_seasons(serie_id)
-        return render_template("/serie_data.html", seasons_data=seasons_data)
+        return render_template("/serie_data.html", seasons_data=seasons_data
+                                                 , title=title)
     return render_template("error.html", message="Request not allowed")
 
