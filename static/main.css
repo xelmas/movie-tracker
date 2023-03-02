@@ -84,14 +84,14 @@ ul.golden li::before{
     width: 100%;
     border: white;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
   }
   .container-fluid>.bottom {
     order:2;
     width: 100%;
     border: white;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
   }
   .container-fluid>.back {
     order:4;
@@ -108,14 +108,14 @@ ul.golden li::before{
     width: 100%;
     border: white;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
   }
   .container-fluid>.bottom {
     order:2;
     width: 100%;
     border: white;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
   }
   .container-fluid>.back {
     order:4;
@@ -163,8 +163,11 @@ ul.golden li::before{
 #box {
   border: white;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
 }
 #noborder {
   border: 0!important;
+}
+#largeFont {
+  font-size: large;
 }

@@ -6,11 +6,11 @@
     <h2>Search result</h2>
   </div>
   <div class="container-fluid">
-    <ul class="golden">
+    <ul class="golden" id="largeFont">
       {% for item in media%}
-      <li> 
+      <li>
         {% if item.media == 1 %}
-        <a href="/serie_data/{{item.title}}" class="text-white"> <u>{{ item.title}}</u></a>, {{item.year}}
+        <a href="/serie_data/{{item.title}}" class="text-white"><u>{{ item.title}}</u></a>, {{item.year}}
         {% else %}
         <a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{item.year}}
         {% endif %} 
