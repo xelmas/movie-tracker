@@ -3,27 +3,31 @@
 {% block content %}
 <div class="container">
   {% if session.user_id %}
-  <div class="row row-cols-3 p-3 mb-2 text-white">
-    <div class="col-12 py-2 center-block text-center">
+  <div class="row mr-auto ml-auto mb-2 text-white">
+    <div class="col-12 py-2 mb-2 center-block text-center">
       <h2>Home</h2>
     </div>
-    <div class="col-4 py-2 mt-2">
-      <h4>Welcome {{ session.user_name }}!</h4>
-    </div>
-    <div class="col-4 py-2 mt-2">
-      <p>Watched movies: {{ movies_count }}</p>
-      <p>Rating average: {{ avg_movies }}</p> 
-      <br>
-      <p>Watched series: {{ series_count }}</p>
-      <p>Rating average: {{ avg_series }}</p>
-    </div>
-    <div class="col-4 py-2">
-      <a href="/watchlist" class="list nav-link px-2 text-warning">Watchlist</a>
-      <a href="/watched" class="list nav-link px-2 text-warning">Watched</a>
-    </div>
   </div>
-    <div class="row mr-auto ml-auto mb-2"> 
-      <div class="column py-4 mt-4 text-white justify-content-center border p-2">
+    <div class="container-fluid" id="top">
+      <div class="item left">
+        <h4>Welcome {{ session.user_name }}!</h4>
+      </div>
+      <div class="item center">
+        <h5>Lists</h5>
+        <a href="/watchlist" class="nav-link text-white"> <u>Watchlist</u></a>
+        <a href="/watched" class="nav-link text-white"> <u>Watched</u></a>
+      </div>
+      <div class="item right">
+        <h5>Statistics</h5>
+        <p class="pt-2">Watched movies: {{ movies_count }} <br>
+          Rating average: {{ avg_movies }} </p>
+        <p>Watched series: {{ series_count }} <br>
+           Rating average: {{ avg_series }}</p>
+      </div>
+    </div>
+    <div class="col-12 p-3"></div>
+    <div class="container-fluid mb-4" id="box">
+      <div class="item top p-3 mt-3">
         <ol>
           <h4>Users top 5 movies</h4>
           <br>
@@ -35,7 +39,7 @@
           {% endfor %}
         </ol>
       </div>
-      <div class="column py-4 mt-4 text-white justify-content-center border p-2">
+      <div class="item bottom p-3 mt-3 mb-auto">
         <ol>
           <h4>Users top 5 seasons</h4>
           <br>

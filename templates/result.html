@@ -5,7 +5,7 @@
   <div class="col-12 py-2 center-block text-center text-white">
     <h2>Search result</h2>
   </div>
-  <div class="row justify-content-center text-white">
+  <div class="container-fluid">
     <ul class="golden">
       {% for item in media%}
       <li> 
@@ -14,7 +14,7 @@
         {% else %}
         <a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{item.year}}
         {% endif %} 
-        <form class="form-inline py-2 mb-2" action="/add_watchlist" method="post">
+        <form class="form-inline py-2 mb-2 mt-1" action="/add_watchlist" method="post">
           <div class="form-group">
             <input type="hidden" name="title" value="{{ item.title }}">
             <input type="hidden" name="year" value="{{ item.year }}">

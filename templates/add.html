@@ -3,9 +3,11 @@
 {% block content %}
 <div class="container">
   <div class="col-12 py-2 center-block text-center text-white">
-    <h2>Add a new movie</h2>
+    <h2>Add new movie or serie</h2>
   </div>
-  <div class="row justify-content-center">
+  <div class="container-fluid">
+    <div class="item top p-3 mt-3" id="noborder">
+      <h3>Add movie</h3>
     <form action="/create_movie" method="POST">
       <div class="form-group text-white"> 
         <label for="title">Title:</label>
@@ -32,10 +34,8 @@
       </div>
     </form>
   </div>
-  <div class="col-12 py-2 center-block text-center text-white">
-    <h2>Add a new serie/season</h2>
-  </div>
-  <div class="row justify-content-center">
+  <div class="item bottom p-3 mt-3" id="noborder">
+    <h3>Add serie/season</h3>
     <form action="/create_serie" method="POST">
       <div class="form-group text-white"> 
         <label for="title">Title:</label>
@@ -61,7 +61,8 @@
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       </div>
     </form>
-    <div class="col-12 mb-4 py-1 center-block text-center text-white">
+  </div>
+    <div class="back col-12 mb-4 py-1 center-block text-center text-white">
      <p>
        <a href="/" class="text-warning">Go back</a>
      </p>
