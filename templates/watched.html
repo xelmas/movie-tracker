@@ -10,7 +10,7 @@
       <ul class="golden">
         <h3>Movies</h3>
           {% for item in watchlist1 %}
-          <li>{{ item.title }}, {{ item.year }} <br>
+          <li><a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{ item.year }} <br>
             {% if ratings1|length > 0%}
               {% for rate in ratings1 %}
                 {% if item.id == rate.movie_id %}
@@ -36,7 +36,7 @@
         <ul class="golden">
           <h3>Series</h3>
           {% for item in watchlist2 %}
-            <li>{{ item.title }}, {{ item.year }} <br>
+            <li><a href="/media/serie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{ item.year }} <br>
             {% if ratings2|length > 0 %}
               {% for rate in ratings2 %}
                 {% if item.id == rate.season_id %}

@@ -12,7 +12,7 @@
         <ul class="golden">
           <h3>Movies</h3>
           {% for item in watchlist1 %}
-          <li>{{ item.title }}, {{ item.year }}
+          <li><a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{ item.year }}
             <form class="form-inline py-2 mb-2" action="/update_watchlist" method="post">
               <div class="form-group"> 
                 <input type="hidden" name="id" value="{{ item.id }}">
@@ -32,7 +32,7 @@
         <ul class="golden">
           <h3>Series</h3>
           {% for item in watchlist2 %}
-          <li>{{ item.title }}, {{ item.year }}
+          <li><a href="/media/serie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{ item.year }}
             <form class="form-inline py-2 mb-2" action="/update_watchlist" method="post">
               <div class="form-group"> 
                 <input type="hidden" name="id" value="{{ item.id }}">
