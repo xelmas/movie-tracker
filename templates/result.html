@@ -10,9 +10,9 @@
       {% for item in media%}
       <li> 
         {% if item.media == 1 %}
-        <a href="/serie_data/{{item.title}}" class="text-white">{{ item.title}}</a>, {{item.year}}
+        <a href="/serie_data/{{item.title}}" class="text-white"> <u>{{ item.title}}</u></a>, {{item.year}}
         {% else %}
-        <a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white">{{ item.title }}</a>, {{item.year}}
+        <a href="/media/movie/{{item.title}}/{{item.year}}" class="text-white"><u>{{ item.title }}</u></a>, {{item.year}}
         {% endif %} 
         <form class="form-inline py-2 mb-2" action="/add_watchlist" method="post">
           <div class="form-group">

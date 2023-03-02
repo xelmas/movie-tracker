@@ -29,7 +29,7 @@
           <br>
           {% for movie in top5_movies %}
           <li>
-            <a href="/media/movie/{{movie.title}}/{{movie.year}}" class="text-white">{{ movie.title }}</a>,
+            <a href="/media/movie/{{movie.title}}/{{movie.year}}" class="text-white"><u>{{ movie.title }}</u></a>,
             {{ movie.year}}, {{ movie.avg }}</li>
           <br>
           {% endfor %}
@@ -40,7 +40,7 @@
           <h4>Users top 5 seasons</h4>
           <br>
           {% for season in top5_series %}
-          <li><a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white">{{ season.title}}, season {{season.num}}</a>
+          <li><a href="/media/serie/{{season.title}}/{{season.year}}" class="text-white"> <u>{{ season.title}}, season {{season.num}}</u></a>
              ({{season.year}}), {{season.avg }}</li>
           <br>
           {% endfor %}
