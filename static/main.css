@@ -54,16 +54,75 @@ ul.golden li::before{
   flex: column;
   flex-basis: 100%;
   flex: 1;
-  justify-content: space-around;
+  justify-content: center;
 }
 @media (max-width: 600px) {
   .hidden-mobile {
     display: none;
   }
 }
-@media (max-width: 200px) {
+
+@media (min-width: 383px) and (max-width: 991px) {
   .column {
     flex-flow: column wrap;
+  }
+  .container-fluid>.left {
+    order:1;
+    width: 100%;
+    text-align: center;
+  }
+  .container-fluid>.right {
+    order:3;
+    width: 50%;
+  }
+  .container-fluid>.center {
+    order:2;
+    width: 50%;
+  }
+  .container-fluid>.top {
+    order:1;
+    width: 100%;
+    border: white;
+    border-style: solid;
+    border-width: 2px;
+  }
+  .container-fluid>.bottom {
+    order:2;
+    width: 100%;
+    border: white;
+    border-style: solid;
+    border-width: 2px;
+  }
+  .container-fluid>.back {
+    order:4;
+    width: 100%;
+  }
+  #box{
+    border: 0!important;
+  }
+}
+@media (min-width: 200px) and (max-width: 382px){
+
+  .container-fluid>.top {
+    order:1;
+    width: 100%;
+    border: white;
+    border-style: solid;
+    border-width: 2px;
+  }
+  .container-fluid>.bottom {
+    order:2;
+    width: 100%;
+    border: white;
+    border-style: solid;
+    border-width: 2px;
+  }
+  .container-fluid>.back {
+    order:4;
+    width: 100%;
+  }
+  #box{
+    border: 0!important;
   }
 }
 .btn-light:active {
@@ -73,4 +132,39 @@ ul.golden li::before{
 .btn-light:hover{
     background:  	#FFC107;
     color: black;
+}
+.item {
+  flex-basis: auto;
+  padding: auto;
+}
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-around;
+  gap: 40px 60px;
+  color: white;
+}
+.nav-link {
+  padding-left: 0;
+}
+.footer {
+  position:fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+}
+#top {
+  justify-content: space-evenly;
+}
+#box {
+  border: white;
+  border-style: solid;
+  border-width: 2px;
+}
+#noborder {
+  border: 0!important;
 }
