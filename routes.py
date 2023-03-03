@@ -30,7 +30,7 @@ def register():
         if password1 != password2:
             return render_template("error.html", message="Passwords are not equal")
         if users.register(username, password1):
-            return redirect("/")
+            return redirect("/login")
     return render_template("error.html", message="Registering not successful")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -100,13 +100,15 @@ def create_movie():
             movie_id = movies.get_movie_id(title)
             if option == "watched":
                 if movies.mark_watched(movie_id, user_id):
-                    if "rating" in request.form:
-                        rating = request.form["rating"]
+                    if "ratings" in request.form:
+                        rating = int(request.form["rating"])
                         ratings.rate(user_id, movie_id, rating, 0)
                     return redirect("/watched")
             if option == "watchlist":
                 if movies.add_watchlist(user_id, movie_id):
                     return redirect("/watchlist")
+            else:
+                return redirect("/")
         else:
             return redirect("/")
     
@@ -138,13 +140,15 @@ def create_serie():
             season_id = series.get_season_id(year, serie_id)
             if option == "watched":
                 if series.mark_watched(season_id, user_id):
-                    if "rating" in request.form:
-                        rating = request.form["rating"]
+                    if "ratings" in request.form:
+                        rating = int(request.form["rating"])
                         ratings.rate(user_id, season_id, rating, 1)
                     return redirect("/watched")
             if option == "watchlist":
                 if series.add_watchlist(user_id, season_id):
                     return redirect("/watchlist")
+            else:
+                return redirect("/")
         else:
             return redirect("/")
     
@@ -201,6 +205,7 @@ def update_watchlist():
         serie_id = request.form["id"]
         if process == "Watched":
             series.mark_watched(serie_id, user_id)
+            return redirect("/watched")
         else:
             series.delete_watchlist(user_id, serie_id)
         return redirect("/watchlist")
