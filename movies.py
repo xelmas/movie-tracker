@@ -74,6 +74,14 @@ def watched(user_id):
     watched_movies = result.fetchall()
     return watched_movies
 
+def movie_watched(user_id, movie_id):
+
+    sql = """SELECT EXISTS (SELECT 1 FROM movies_watchlist
+             WHERE movie_id = :movie_id AND user_id=:user_id AND status = 1)"""
+    exists = db.session.execute(sql, {"movie_id":movie_id, "user_id":user_id})
+    exists = exists.fetchone()[0]
+    return exists
+
 def watchlist(user_id):
     sql = """SELECT movies.id, title, year, status, movies.media FROM movies_watchlist JOIN movies
              ON movies_watchlist.movie_id = movies.id WHERE status = 0 AND user_id=:user_id"""

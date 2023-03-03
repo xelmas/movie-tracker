@@ -100,6 +100,9 @@ def create_movie():
             movie_id = movies.get_movie_id(title)
             if option == "watched":
                 if movies.mark_watched(movie_id, user_id):
+                    if "rating" in request.form:
+                        rating = request.form["rating"]
+                        ratings.rate(user_id, movie_id, rating, 0)
                     return redirect("/watched")
             if option == "watchlist":
                 if movies.add_watchlist(user_id, movie_id):
@@ -135,6 +138,9 @@ def create_serie():
             season_id = series.get_season_id(year, serie_id)
             if option == "watched":
                 if series.mark_watched(season_id, user_id):
+                    if "rating" in request.form:
+                        rating = request.form["rating"]
+                        ratings.rate(user_id, season_id, rating, 1)
                     return redirect("/watched")
             if option == "watchlist":
                 if series.add_watchlist(user_id, season_id):
